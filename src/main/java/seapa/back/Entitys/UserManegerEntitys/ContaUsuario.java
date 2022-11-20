@@ -9,14 +9,15 @@ import java.util.Date;
 
 @Entity
 @Table(name = "SEAPA_CONTA_USUARIO")
+@SequenceGenerator(name = "conta_usuario_seq", sequenceName = "conta_usuario_seq", allocationSize = 1, initialValue = 1)
 @Data
 public class ContaUsuario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "conta_usuario_seq")
     private Long id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
@@ -30,10 +31,12 @@ public class ContaUsuario {
     private String senha;
 
     @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "data_criacao", nullable = false)
     private Date dataCriacao;
 
     @LastModifiedDate
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "data_ultima_alteracao", nullable = false)
     private Date dataUltimaAlteracao;
 

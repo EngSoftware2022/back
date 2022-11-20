@@ -2,22 +2,17 @@ package seapa.back.Entitys.UserManegerEntitys;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "SEAPA_USUARIO")
+@SequenceGenerator(name = "usuario_seq", sequenceName = "usuario_seq", allocationSize = 1, initialValue = 1)
 @Data
 public class Usuario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "usuario_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "conta_usuario_seq")
     private Long id;
 
     @Column(name = "nome", nullable = false)

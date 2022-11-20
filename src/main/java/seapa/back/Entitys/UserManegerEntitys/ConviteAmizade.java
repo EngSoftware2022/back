@@ -6,7 +6,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "SEAPA_CONTA_USUARIO")
+@Table(name = "SEAPA_CONVITE_AMIZADE")
 @Data
 public class ConviteAmizade {
 
