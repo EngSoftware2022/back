@@ -1,17 +1,15 @@
 package seapa.back.Entitys.UserManegerEntitys;
 
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import seapa.back.Audit.Auditable;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "SEAPA_CONTA_USUARIO")
 @SequenceGenerator(name = "conta_usuario_seq", sequenceName = "conta_usuario_seq", allocationSize = 1, initialValue = 1)
 @Data
-public class ContaUsuario {
+public class ContaUsuario extends Auditable<String> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "conta_usuario_seq")
@@ -29,16 +27,6 @@ public class ContaUsuario {
 
     @Column(name = "senha", nullable = false)
     private String senha;
-
-    @CreatedDate
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "data_criacao", nullable = false)
-    private Date dataCriacao;
-
-    @LastModifiedDate
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "data_ultima_alteracao", nullable = false)
-    private Date dataUltimaAlteracao;
 
     @Column(name = "status_conta", nullable = false)
     private String statusConta;
