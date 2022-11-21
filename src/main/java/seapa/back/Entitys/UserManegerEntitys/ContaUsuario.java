@@ -4,6 +4,7 @@ import lombok.Data;
 import seapa.back.Audit.Auditable;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "SEAPA_CONTA_USUARIO")

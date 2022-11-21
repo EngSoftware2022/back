@@ -39,6 +39,8 @@ public class ContaUsuarioController {
             return HttpStatus.NOT_FOUND;
         }
 
+        contaUsuarioRepository.deleteById(id);
+
         return HttpStatus.OK;
     }
 }
