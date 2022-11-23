@@ -16,7 +16,7 @@ import java.util.Date;
 @Data
 public class ConviteAmizade implements Serializable {
 
-    public static final String FIND_ALL_CONVITES_PENDENTES_BY_SOLICITANTE_ID = "SELECT ca FROM ConviteAmizade ca WHERE ca.solicitante = :solicitanteId AND ca.statusConvite = 'PENDENTE'";
+    public static final String FIND_ALL_CONVITES_PENDENTES_BY_SOLICITANTE_ID = "SELECT ca FROM ConviteAmizade ca WHERE ca.solicitante.id = :solicitanteId AND ca.statusConvite = 'PENDENTE'";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "convite_amizade_seq")
