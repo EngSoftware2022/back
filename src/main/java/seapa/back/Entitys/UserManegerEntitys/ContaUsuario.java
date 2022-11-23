@@ -30,4 +30,8 @@ public class ContaUsuario extends Auditable<String> {
 
     @Column(name = "status_conta", nullable = false)
     private String statusConta;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "extrato_id")
+    private Extrato extrato;
 }

@@ -1,9 +1,16 @@
 package seapa.back.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import seapa.back.Entitys.UserManegerEntitys.Extrato;
 import seapa.back.Services.UserManagerService;
+
+import java.math.BigDecimal;
 
 @RestController
 @RequestMapping("/usermanager")
@@ -11,6 +18,9 @@ public class UserManagerControllerMagno {
 
     @Autowired
     private UserManagerService service;
+
+    @Autowired
+    private ExtratoService extratoService;
 /*
     @PostMapping(value = "/login")//funcionando
     public ResponseEntity conferirLogin(@RequestBody Login login){
@@ -65,4 +75,16 @@ public class UserManagerControllerMagno {
         return ResponseEntity.ok().build();
     }
 */
+    @PostMapping(value = "/extrato")
+    public HttpStatus mudancaExtrato(@RequestBody String username, BigDecimal NovoSaldo){
+        this.service.findByUsername(username);
+        this.extratoService.getExtrato();
+    }
+
+    @GetMapping(value = "/extrato")
+    public Extrato extrato(String username){
+        this.service.findByUsername(username);
+        return this.extratoService.getExtrato();
+    }
+
 }
