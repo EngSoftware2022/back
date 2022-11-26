@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import seapa.back.Entitys.UserManegerEntitys.ConviteAmizade;
+import seapa.back.Models.ConviteAmizadeDTO;
 import seapa.back.Models.ConviteAmizadeJson;
 
 import javax.persistence.EntityManager;
@@ -21,6 +22,7 @@ public class ConviteAmizadeService {
     @PersistenceContext
     private EntityManager em;
 
+    /*
     public List<ConviteAmizadeJson> findAllConvitesPendentesByUsuarioIdToJson(Long solicitanteId) {
         Query query = this.em.createNamedQuery(FIND_ALL_CONVITES_PENDENTES_BY_SOLICITANTE_ID);
         query.setParameter("solicitanteId", solicitanteId);
@@ -49,4 +51,13 @@ public class ConviteAmizadeService {
 
         return convitesAmizadesJsons;
     }
+    */
+
+    public List<ConviteAmizade> findAllConvitesPendentesByUsuarioId(Long solicitanteId) {
+        Query query = this.em.createNamedQuery(FIND_ALL_CONVITES_PENDENTES_BY_SOLICITANTE_ID);
+        query.setParameter("solicitanteId", solicitanteId);
+
+        return query.getResultList();
+    }
+
 }

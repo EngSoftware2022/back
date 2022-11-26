@@ -57,7 +57,7 @@ public class ContaUsuarioController {
 
     @ResponseStatus(HttpStatus.ACCEPTED)
     @GetMapping(value = "/signin/usuario={usuario}&senha={senha}")
-    public Long signIn(@ApiParam @PathVariable String usuario, @ApiParam @PathVariable String senha) {
+    public Long findByLogin(@ApiParam @PathVariable String usuario, @ApiParam @PathVariable String senha) {
         Long contaUsuarioId = contaUsuarioService.findContaUsuarioIdByNomeUsuarioAndSenha(usuario, senha);
 
         if (contaUsuarioId == null) {
