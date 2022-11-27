@@ -2,21 +2,14 @@ package seapa.back.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import seapa.back.Entitys.Amigos;
-import seapa.back.Entitys.PedidosDeAmizade;
-import seapa.back.Entitys.Usuarios;
-import seapa.back.Models.UsuarioModel;
-import seapa.back.Repository.UserManagerRepository;
-
-import java.util.List;
-import java.util.Objects;
+import seapa.back.Repository.UserManagerRepositoryMagno;
 
 @Service
-public class UserManagerService {
+public class UserManagerServiceMagno {
 
     @Autowired
-    private UserManagerRepository repository;
-
+    private UserManagerRepositoryMagno repository;
+ /*
     public void cadastrarUsuario(UsuarioModel model) {//ok
         this.repository.salvaUsuario(deModelParaEntidade(model));
     }//ok
@@ -42,12 +35,13 @@ public class UserManagerService {
         this.repository.deletarPedido(new PedidosDeAmizade(usuarioCorrente,usuarioSolicitante));
 
     }
+
     private void salvarAmizadeNosUsuarios(String usuarioCorrente, String usuarioSolicitante) {
-        Usuarios usuarioCor = this.repository.achaUsuario(usuarioCorrente);
-        Usuarios usuarioSol = this.repository.achaUsuario(usuarioSolicitante);
-        Amigos doUserCorParaSol = new Amigos();
+        Usuario usuarioCor = this.repository.achaUsuario(usuarioCorrente);
+        Usuario usuarioSol = this.repository.achaUsuario(usuarioSolicitante);
+        ListaAmigos doUserCorParaSol = new ListaAmigos();
         doUserCorParaSol.setUser(usuarioSol);
-        Amigos doUserSolParaCor = new Amigos();
+        ListaAmigos doUserSolParaCor = new ListaAmigos();
         doUserSolParaCor.setUser(usuarioCor);
         usuarioCor.getAmigos().add(doUserSolParaCor);
         usuarioSol.getAmigos().add(doUserCorParaSol);
@@ -56,12 +50,12 @@ public class UserManagerService {
     }
 
     public void atualizaUsuario(UsuarioModel model) {//ok
-        Usuarios usuario = this.repository.achaUsuario(model.getNomeDeUsuario());
+        Usuario usuario = this.repository.achaUsuario(model.getNomeDeUsuario());
         atualizarUsuario(usuario,model);
         this.repository.salvaUsuario(usuario);
     }
 
-    private Usuarios atualizarUsuario(Usuarios usuario, UsuarioModel model) {
+    private Usuario atualizarUsuario(Usuario usuario, UsuarioModel model) {
         usuario.setDataNascimento(model.getDataNascimento());
         usuario.setEmail(model.getEmail());
         usuario.setNome(model.getNome());
@@ -72,7 +66,6 @@ public class UserManagerService {
         usuario.setSenha(model.getSenha());
         return usuario;
     }
-
     public boolean validaUsuario(String usuario, String senha) {
         if( Objects.nonNull(this.repository.verificarUsuarioESenha(usuario, senha)) ) return true;
 
@@ -83,12 +76,12 @@ public class UserManagerService {
        // this.repository.deletarAmizade(usuarioCorrente,usuarioDestino);
     }
 
-    public List<Amigos> listarTodosAmigos(String usuarioCorrente) {
+    public List<ListaAmigos> listarTodosAmigos(String usuarioCorrente) {
       return this.repository.acharTodosAmigos(usuarioCorrente);
     }
 
 
-    private UsuarioModel deEntidadeParaModel(Usuarios entidade){
+    private UsuarioModel deEntidadeParaModel(Usuario entidade){
         UsuarioModel usuarioModel = new UsuarioModel();
         usuarioModel.setDataNascimento(entidade.getDataNascimento());
         usuarioModel.setEmail(entidade.getEmail());
@@ -99,8 +92,10 @@ public class UserManagerService {
         return usuarioModel;
     }
 
-    private Usuarios deModelParaEntidade(UsuarioModel model){
-        Usuarios usuario = new Usuarios();
+    private Usuario deModelParaEntidade(UsuarioModel model){
+        Usuario usuario = new Usuario();
         return atualizarUsuario(usuario,model);
     }
+    */
+
 }

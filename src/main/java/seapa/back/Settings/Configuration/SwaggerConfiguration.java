@@ -1,4 +1,4 @@
-package seapa.back.Settings;
+package seapa.back.Settings.Configuration;
 
 import org.springframework.context.annotation.Bean;
 import springfox.documentation.builders.ApiInfoBuilder;

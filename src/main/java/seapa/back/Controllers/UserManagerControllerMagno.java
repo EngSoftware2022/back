@@ -1,37 +1,17 @@
 package seapa.back.Controllers;
 
-import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import seapa.back.Entitys.Amigos;
-import seapa.back.Entitys.PedidosDeAmizade;
-import seapa.back.Models.ConfirmacaoAmizade;
-import seapa.back.Models.Login;
-import seapa.back.Models.SolicitacaoAmizade;
-import seapa.back.Models.UsuarioModel;
-import seapa.back.Services.UserManagerService;
-
-import java.util.List;
-
-import static org.springframework.http.HttpStatus.OK;
+import seapa.back.Services.UserManagerServiceMagno;
 
 @RestController
 @RequestMapping("/usermanager")
-public class UserManagerController {
+public class UserManagerControllerMagno {
 
     @Autowired
-    private UserManagerService service;
-
+    private UserManagerServiceMagno service;
+/*
     @PostMapping(value = "/login")//funcionando
     public ResponseEntity conferirLogin(@RequestBody Login login){
         if(this.service.validaUsuario(login.getNomeDeUsuario(), login.getSenha())) {
@@ -64,12 +44,12 @@ public class UserManagerController {
     }
 
     @GetMapping(value = "/buscaamigos")
-    public ResponseEntity<List<Amigos>> listaAmigos(@RequestParam String usuarioCorrente){
+    public ResponseEntity<List<ListaAmigos>> listaAmigos(@RequestParam String usuarioCorrente){
         return new ResponseEntity<>(this.service.listarTodosAmigos(usuarioCorrente), OK);
     }
 
     @DeleteMapping(value = "/buscaamigos/deletar")
-    public ResponseEntity deletaAmigos(@RequestParam String usuarioCorrente, @RequestParam String usuarioDestino){
+    public ResponseEntity deletaAmigos(@RequestParam String usuarioCorrente, @RequestParam String usuarioDestino) {
         this.service.deletarAmizade(usuarioCorrente, usuarioDestino);
         return ResponseEntity.ok().build();
     }
@@ -84,5 +64,5 @@ public class UserManagerController {
         this.service.criaVinculoAmizade(confirmacao.getUsuarioCorrente(),confirmacao.getUsuarioSolicitante(),confirmacao.getAceitou());
         return ResponseEntity.ok().build();
     }
-
+*/
 }
