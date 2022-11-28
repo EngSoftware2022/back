@@ -21,6 +21,12 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-resources-plugin</artifactId>
+			<version>3.2.0</version>
+			<type>maven-plugin</type>
+		</dependency>
 		<!-- Dependências do Spring-boot -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -95,7 +101,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-resources-plugin</artifactId>
-					<version>3.1.0</version>
+					<version>3.2.0</version>
 				</plugin>
 				<plugin>
 					<groupId>org.springframework.boot</groupId>
