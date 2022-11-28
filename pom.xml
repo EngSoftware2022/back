@@ -18,13 +18,14 @@
 
 	<properties>
 		<java.version>19</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-resources-plugin</artifactId>
-			<version>3.2.0</version>
+			<version>3.3.0</version>
 			<type>maven-plugin</type>
 		</dependency>
 		<!-- Dependências do Spring-boot -->
@@ -101,7 +102,10 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-resources-plugin</artifactId>
-					<version>3.2.0</version>
+					<version>3.3.0</version>
+					<configuration>
+						<encoding>UTF-8</encoding>
+					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.springframework.boot</groupId>
