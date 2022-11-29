@@ -1,4 +1,4 @@
-package seapa.back.Entitys.UserManegerEntitys;
+package seapa.back.Entitys.UserManegerEntitys.UserEntitys;
 
 import lombok.Data;
 
@@ -25,4 +25,13 @@ public class Extrato {
 
     @Embedded
     private UltimasMovimentacoes extrato;
+
+    public void atualizaExtrato(BigDecimal novoSaldo) {
+        extrato.setSaldo5(extrato.getSaldo4());
+        extrato.setSaldo4(extrato.getSaldo3());
+        extrato.setSaldo3(extrato.getSaldo2());
+        extrato.setSaldo2(extrato.getSaldo1());
+        extrato.setSaldo1(this.getSaldoAtual());
+        this.setSaldoAtual(novoSaldo);
+    }
 }
