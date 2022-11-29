@@ -1,9 +1,8 @@
 package seapa.back.Entitys.UserManegerEntitys;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import seapa.back.Audit.Auditable;
-
-import javax.persistence.*;
 
 
 @Entity

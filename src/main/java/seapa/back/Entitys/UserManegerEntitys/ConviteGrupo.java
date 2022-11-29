@@ -2,7 +2,8 @@ package seapa.back.Entitys.UserManegerEntitys;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 
 @Entity
 @Table(name = "SEAPA_CONVITE_GRUPO")

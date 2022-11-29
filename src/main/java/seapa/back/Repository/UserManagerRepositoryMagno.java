@@ -1,16 +1,9 @@
 package seapa.back.Repository;
 
-import org.hibernate.Criteria;
-import org.hibernate.Query;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.transform.Transformers;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import seapa.back.Entitys.UserManegerEntitys.ListaAmigos;
-import seapa.back.Entitys.UserManegerEntitys.Usuario;
 
-import javax.annotation.Resource;
-import java.util.List;
 
 @Repository
 @Transactional
