@@ -3,9 +3,7 @@ package seapa.back.Entitys.UserManegerEntitys;
 import lombok.Data;
 import seapa.back.Audit.Auditable;
 
-import jakarta.persistence.*;
-
-
+import javax.persistence.*;
 
 @Entity
 @Table(name = "SEAPA_GRUPO")

@@ -2,7 +2,7 @@ package seapa.back.Entitys.UserManegerEntitys;
 
 import lombok.Data;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity

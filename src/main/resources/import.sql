@@ -1,2 +1,2 @@
--- INSERT INTO SEAPA_USUARIO(nome, sobrenome, cpf, dataAniversario, cep, telefone) VALUES ('Gabriel', 'Silva', '75362683333', '2000-05-10', '04021111', '12987654444');
--- INSERT INTO SEAPA_CONTA_USUARIO(usuarioId, nomeUsuario, email, senha) VALUES (1, 'PedroSilva', 'pedro.silva@exemplo.com', 'teste10');
+INSERT INTO SEAPA_USUARIO(nome, sobrenome, cpf, dataAniversario, cep, telefone) VALUES ('Gabriel', 'Silva', '75362683333', '2000-05-10', '04021111', '12987654444');
+INSERT INTO SEAPA_CONTA_USUARIO(usuarioId, nomeUsuario, email, senha) VALUES (1, 'PedroSilva', 'pedro.silva@exemplo.com', 'teste10');
