@@ -1,9 +1,15 @@
-package seapa.back.Entitys.UserManegerEntitys;
+package seapa.back.Entitys.UserManegerEntitys.UserEntitys;
 
 import lombok.Data;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "SEAPA_USUARIO")
@@ -25,11 +31,9 @@ public class Usuario {
     private String cpf;
 
     @Column(name = "data_aniversario", nullable = false)
-    private Date dataAniversario;
-
-    @Column(name = "cep", nullable = false)
-    private String cep;
+    private LocalDate dataAniversario;
 
     @Column(name = "telefone", nullable = false)
     private String telefone;
+
 }

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import seapa.back.Entitys.UserManegerEntitys.ConviteAmizade;
+import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ConviteAmizade;
 import seapa.back.Models.ConviteAmizadeDTO;
 
 import java.util.List;
