@@ -3,7 +3,7 @@ package seapa.back.Settings.Configuration;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import seapa.back.Entitys.UserManegerEntitys.ConviteAmizade;
+import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ConviteAmizade;
 import seapa.back.Models.ConviteAmizadeDTO;
 
 @Configuration

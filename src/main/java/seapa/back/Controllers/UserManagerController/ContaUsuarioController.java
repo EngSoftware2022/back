@@ -3,12 +3,19 @@ package seapa.back.Controllers.UserManagerController;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
-import seapa.back.Entitys.UserManegerEntitys.ContaUsuario;
+import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ContaUsuario;
+import seapa.back.Models.UsuarioModel;
 import seapa.back.Repository.UserManagerRepository.ContaUsuarioRepository;
 import seapa.back.Services.UserManagerService.ContaUsuarioService;
-import seapa.back.Utils.StatusContaEnum;
 
 import java.util.List;
 
@@ -35,11 +42,10 @@ public class ContaUsuarioController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public void insertContaUsuario(@RequestBody ContaUsuario contaUsuario) {
+    public void insertContaUsuario(@RequestBody UsuarioModel cadastroUsuario) {
         try{
-            contaUsuario.setStatusConta(StatusContaEnum.ATIVO.toString());
-
-            contaUsuarioRepository.save(contaUsuario);
+            ContaUsuario conta = cadastroUsuario.conversor();
+            contaUsuarioRepository.save(conta);
         } catch (Exception e) {
             throw new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR);
         }

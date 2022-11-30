@@ -1,8 +1,9 @@
-package seapa.back.Entitys.UserManegerEntitys;
+package seapa.back.Entitys.UserManegerEntitys.UserEntitys;
 
-import jakarta.persistence.*;
 import lombok.Data;
 import seapa.back.Audit.Auditable;
+
+import javax.persistence.*;
 
 
 @Entity
@@ -35,4 +36,8 @@ public class ContaUsuario extends Auditable<String> {
 
     @Column(name = "status_conta", nullable = false)
     private String statusConta;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "extrato_id")
+    private Extrato extrato;
 }

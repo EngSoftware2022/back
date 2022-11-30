@@ -1,19 +1,15 @@
 package seapa.back.Services.UserManagerService;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import seapa.back.Entitys.UserManegerEntitys.ConviteAmizade;
-import seapa.back.Models.ConviteAmizadeDTO;
-import seapa.back.Models.ConviteAmizadeJson;
+import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ConviteAmizade;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
-import java.util.ArrayList;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
-import static seapa.back.Entitys.UserManegerEntitys.ConviteAmizade.FIND_ALL_CONVITES_PENDENTES_BY_SOLICITANTE_ID;
+import static seapa.back.Entitys.UserManegerEntitys.UserEntitys.ConviteAmizade.FIND_ALL_CONVITES_PENDENTES_BY_SOLICITANTE_ID;
 
 @Service
 @Transactional

@@ -1,9 +1,9 @@
-package seapa.back.Entitys.UserManegerEntitys;
+package seapa.back.Entitys.UserManegerEntitys.UserEntitys;
 
 
 import lombok.Data;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
