@@ -18,7 +18,7 @@ import java.time.LocalDate;
 public class Usuario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "conta_usuario_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_seq")
     private Long id;
 
     @Column(name = "nome", nullable = false)
