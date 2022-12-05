@@ -1,4 +1,4 @@
-package seapa.back.Settings.Configuration;
+package seapa.back.Settings.Configurations.DataBases;
 
 
 import java.net.URI;

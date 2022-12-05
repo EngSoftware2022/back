@@ -1,4 +1,4 @@
-package seapa.back.Settings.Configuration;
+package seapa.back.Settings.Configurations;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

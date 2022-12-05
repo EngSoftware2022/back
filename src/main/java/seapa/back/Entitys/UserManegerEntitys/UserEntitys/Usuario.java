@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "SEAPA_USUARIO")
@@ -31,7 +32,7 @@ public class Usuario {
     private String cpf;
 
     @Column(name = "data_aniversario", nullable = false)
-    private LocalDate dataAniversario;
+    private Date dataAniversario;
 
     @Column(name = "telefone", nullable = false)
     private String telefone;

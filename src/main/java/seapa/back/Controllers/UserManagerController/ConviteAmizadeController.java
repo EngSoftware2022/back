@@ -11,7 +11,7 @@ import seapa.back.Models.ConviteAmizadeDTO;
 import seapa.back.Repository.UserManagerRepository.ConviteAmizadeRepository;
 import seapa.back.Services.UserManagerService.ConviteAmizadeService;
 import seapa.back.Settings.Mappers.ConviteAmizadeMapper;
-import seapa.back.Utils.StatusConviteAmizade;
+import seapa.back.Utils.StatusConviteAmizadeEnum;
 
 import java.util.Date;
 import java.util.List;
@@ -62,7 +62,7 @@ public class ConviteAmizadeController {
         novoConvite.setSolicitante(contaUsuarioController.findContaUsuarioById(solicitanteId));
         novoConvite.setSolicitado(contaUsuarioController.findContaUsuarioById(solicitadoId));
         novoConvite.setDataSolicitacao(new Date(System.currentTimeMillis()));
-        novoConvite.setStatusConvite(StatusConviteAmizade.PENDENTE.toString());
+        novoConvite.setStatusConvite(StatusConviteAmizadeEnum.PENDENTE.toString());
 
         conviteAmizadeRepository.save(novoConvite);
 
@@ -82,14 +82,14 @@ public class ConviteAmizadeController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Convite de amizade expirado");
         }
 
-        if (statusConvite.equals(StatusConviteAmizade.REJEITADO.toString())){
+        if (statusConvite.equals(StatusConviteAmizadeEnum.REJEITADO.toString())){
             this.deleteConviteAmizade(conviteId);
 
             return ResponseEntity.status(HttpStatus.OK).body("Convite de amizade rejeitado com SUCESSO");
         }
-        else if (statusConvite.equals(StatusConviteAmizade.ACEITO.toString())){
+        else if (statusConvite.equals(StatusConviteAmizadeEnum.ACEITO.toString())){
             conviteAmizade.setDataConfirmacao(new Date(System.currentTimeMillis()));
-            conviteAmizade.setStatusConvite(StatusConviteAmizade.ACEITO.toString());
+            conviteAmizade.setStatusConvite(StatusConviteAmizadeEnum.ACEITO.toString());
 
             ListaAmigos addNovoAmigoNaLista = new ListaAmigos();
 

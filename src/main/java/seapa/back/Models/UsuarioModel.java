@@ -6,6 +6,7 @@ import seapa.back.Entitys.UserManegerEntitys.UserEntitys.Usuario;
 import seapa.back.Utils.StatusContaEnum;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 public class UsuarioModel {
@@ -22,7 +23,7 @@ public class UsuarioModel {
 
     private String cpf;
 
-    private LocalDate dataNascimento;
+    private Date dataNascimento;
 
     private String telefone;
 

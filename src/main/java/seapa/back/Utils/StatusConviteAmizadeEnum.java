@@ -1,6 +1,6 @@
 package seapa.back.Utils;
 
-public enum StatusConviteAmizade {
+public enum StatusConviteAmizadeEnum {
     ACEITO,
     PENDENTE,
     REJEITADO
