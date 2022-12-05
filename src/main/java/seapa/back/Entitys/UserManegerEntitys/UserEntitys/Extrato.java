@@ -24,7 +24,7 @@ public class Extrato {
     private BigDecimal SaldoAtual = BigDecimal.ZERO;
 
     @Embedded
-    private UltimasMovimentacoes extrato;
+    private UltimasMovimentacoes extrato = new UltimasMovimentacoes();
 
     public void atualizaExtrato(BigDecimal novoSaldo) {
         extrato.setSaldo5(extrato.getSaldo4());

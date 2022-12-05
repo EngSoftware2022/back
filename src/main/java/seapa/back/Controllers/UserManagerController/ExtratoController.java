@@ -15,6 +15,8 @@ import seapa.back.Models.AtualizaExtratoModel;
 import seapa.back.Repository.UserManagerRepository.ContaUsuarioRepository;
 import seapa.back.Repository.UserManagerRepository.ExtratoRepository;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping(value = "/extrato")
 public class ExtratoController {
@@ -28,16 +30,17 @@ public class ExtratoController {
     @GetMapping
     public Extrato getSaldo(@RequestParam Long UsuarioId){
         ContaUsuario usuario = contaUsuarioRepository.findById(UsuarioId).get();
-        Extrato extrato = repository.findById(usuario.getExtrato().getId()).get();
+        Extrato extrato = usuario.getExtrato();
         return extrato;
     }
 
     @PostMapping
     public HttpStatus atualizaSaldo(@RequestBody AtualizaExtratoModel extratoModel){
         ContaUsuario usuario = contaUsuarioRepository.findById(extratoModel.getUsuarioId()).get();
-        Extrato extratoAtual = repository.findById(usuario.getExtrato().getId()).get();
+        Extrato extratoAtual = Optional.ofNullable(usuario.getExtrato()).orElse(new Extrato());
         extratoAtual.atualizaExtrato(extratoModel.getNovoSaldo());
-        repository.save(extratoAtual);
+        usuario.setExtrato(extratoAtual);
+        contaUsuarioRepository.save(usuario);
         return HttpStatus.OK;
     }
 }
