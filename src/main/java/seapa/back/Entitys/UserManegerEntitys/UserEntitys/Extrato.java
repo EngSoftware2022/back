@@ -21,7 +21,7 @@ public class Extrato {
     private Long id;
 
     @Column
-    private BigDecimal SaldoAtual;
+    private BigDecimal SaldoAtual = BigDecimal.ZERO;
 
     @Embedded
     private UltimasMovimentacoes extrato;
