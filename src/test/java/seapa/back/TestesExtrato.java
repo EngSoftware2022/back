@@ -2,15 +2,12 @@ package seapa.back;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import seapa.back.Controllers.UserManagerController.ExtratoController;
 import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ContaUsuario;
 import seapa.back.Entitys.UserManegerEntitys.UserEntitys.Extrato;
 import seapa.back.Repository.UserManagerRepository.ContaUsuarioRepository;
-import seapa.back.Repository.UserManagerRepository.ExtratoRepository;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -50,7 +47,6 @@ public class TestesExtrato {
 
     @Test
     public void testaSaldo(){
-       // ExtratoController controller = Mockito.mock(ExtratoController.class);
         Extrato extrato =  controller.getSaldo(1L);
         BigDecimal bigDecimal = new BigDecimal(100.00).setScale(2);
         assertEquals(extrato.getSaldoAtual(), bigDecimal);
