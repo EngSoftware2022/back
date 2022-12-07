@@ -15,7 +15,9 @@ public class ModelMapperConfiguration {
 
         modelMapper.createTypeMap(ConviteAmizade.class, ConviteAmizadeDTO.class)
                 .addMapping(src -> src.getSolicitante().getId(), ConviteAmizadeDTO::setSolicitanteId)
-                .addMapping(src -> src.getSolicitado().getId(), ConviteAmizadeDTO::setSolicitadoId);
+                .addMapping(src -> src.getSolicitante().getNomeUsuario(), ConviteAmizadeDTO::setSolicitanteNome)
+                .addMapping(src -> src.getSolicitado().getId(), ConviteAmizadeDTO::setSolicitadoId)
+                .addMapping(src -> src.getSolicitado().getNomeUsuario(), ConviteAmizadeDTO::setSolicitadoNome);
 
         return modelMapper;
     }

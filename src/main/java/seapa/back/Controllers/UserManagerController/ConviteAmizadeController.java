@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ConviteAmizade;
 import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ListaAmigos;
 import seapa.back.Models.ConviteAmizadeDTO;
+import seapa.back.Repository.UserManagerRepository.ContaUsuarioRepository;
 import seapa.back.Repository.UserManagerRepository.ConviteAmizadeRepository;
 import seapa.back.Services.UserManagerService.ConviteAmizadeService;
 import seapa.back.Settings.Mappers.ConviteAmizadeMapper;
@@ -28,7 +29,7 @@ public class ConviteAmizadeController {
     private ConviteAmizadeService conviteAmizadeService;
 
     @Autowired
-    ContaUsuarioController contaUsuarioController;
+    private ContaUsuarioRepository contaUsuarioRepository;
 
     @Autowired
     private ListaAmigosController listaAmigosController;
@@ -36,16 +37,17 @@ public class ConviteAmizadeController {
     @Autowired
     ConviteAmizadeMapper conviteAmizadeMapper;
 
-  //  @GetMapping(value = "/{id}")
-  //  public ResponseEntity<ConviteAmizadeDTO> findConvitePendenteById(@PathVariable Long id) {
-  //      ConviteAmizade conviteAmizade = conviteAmizadeRepository.findById(id).get();
-   //     ConviteAmizadeDTO conviteAmizadeDTO = conviteAmizadeMapper.toConviteAmizadeDTO(conviteAmizade);
-  //      return ResponseEntity.status(HttpStatus.OK).body(conviteAmizadeDTO);
-  //  }
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<ConviteAmizadeDTO> findConvitePendenteById(@PathVariable Long id) {
+        ConviteAmizade conviteAmizade = conviteAmizadeRepository.findById(id).get();
+        ConviteAmizadeDTO conviteAmizadeDTO = conviteAmizadeMapper.toConviteAmizadeDTO(conviteAmizade);
 
-    @GetMapping(value = "/{solicitanteId}")
-    public ResponseEntity<List<ConviteAmizadeDTO>> findAllConvitesPendentesByUsuarioId(@PathVariable Long solicitanteId) {
-        List<ConviteAmizade> convitesDeAmizadePendentes = conviteAmizadeService.findAllConvitesPendentesByUsuarioId(solicitanteId);
+        return ResponseEntity.status(HttpStatus.OK).body(conviteAmizadeDTO);
+    }
+
+    @GetMapping(value = "solicitadoId={solicitadoId}")
+    public ResponseEntity<List<ConviteAmizadeDTO>> findAllConvitesPendentesByUsuarioId(@PathVariable Long solicitadoId) {
+        List<ConviteAmizade> convitesDeAmizadePendentes = conviteAmizadeService.findAllConvitesPendentesByUsuarioId(solicitadoId);
         List<ConviteAmizadeDTO> convitesDeAmizadePendentesDTO = conviteAmizadeMapper.toConviteAmizadeDTOList(convitesDeAmizadePendentes);
 
         return ResponseEntity.status(HttpStatus.OK).body(convitesDeAmizadePendentesDTO);
@@ -58,8 +60,8 @@ public class ConviteAmizadeController {
 
         ConviteAmizade novoConvite = new ConviteAmizade();
 
-        novoConvite.setSolicitante(contaUsuarioController.findContaUsuarioById(solicitanteId));
-        novoConvite.setSolicitado(contaUsuarioController.findContaUsuarioById(solicitadoId));
+        novoConvite.setSolicitante(contaUsuarioRepository.findById(solicitanteId).get());
+        novoConvite.setSolicitado(contaUsuarioRepository.findById(solicitadoId).get());
         novoConvite.setDataSolicitacao(new Date(System.currentTimeMillis()));
         novoConvite.setStatusConvite(StatusConviteAmizade.PENDENTE.toString());
 
@@ -90,12 +92,17 @@ public class ConviteAmizadeController {
             conviteAmizade.setDataConfirmacao(new Date(System.currentTimeMillis()));
             conviteAmizade.setStatusConvite(StatusConviteAmizade.ACEITO.toString());
 
-            ListaAmigos addNovoAmigoNaLista = new ListaAmigos();
+            ListaAmigos addNovoAmigoNaListaDoSolicitante = new ListaAmigos();
+            ListaAmigos addNovoAmigoNaListaDoSolicitado = new ListaAmigos();
 
-            addNovoAmigoNaLista.setUsuarioId(conviteAmizade.getSolicitante().getId());
-            addNovoAmigoNaLista.setAmizadeId(conviteAmizade.getSolicitado().getId());
+            addNovoAmigoNaListaDoSolicitante.setUsuarioId(conviteAmizade.getSolicitante().getId());
+            addNovoAmigoNaListaDoSolicitante.setAmizadeId(conviteAmizade.getSolicitado().getId());
 
-            listaAmigosController.insertNovoAmigo(addNovoAmigoNaLista);
+            addNovoAmigoNaListaDoSolicitado.setUsuarioId(conviteAmizade.getSolicitado().getId());
+            addNovoAmigoNaListaDoSolicitado.setAmizadeId(conviteAmizade.getSolicitante().getId());
+
+            listaAmigosController.insertNovoAmigo(addNovoAmigoNaListaDoSolicitante);
+            listaAmigosController.insertNovoAmigo(addNovoAmigoNaListaDoSolicitado);
         }
 
         conviteAmizadeRepository.save(conviteAmizade);
@@ -103,12 +110,14 @@ public class ConviteAmizadeController {
         return ResponseEntity.status(HttpStatus.UPGRADE_REQUIRED).body("Convite de amizade aceito com SUCESSO");
     }
 
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity deleteConviteAmizade(@PathVariable Long id) {
-        conviteAmizadeRepository.findById(id).orElseThrow( () -> new RuntimeException("Não encontrado"));
+    @DeleteMapping
+    public ResponseEntity<String> deleteConviteAmizade(@RequestParam Long id) {
+        if (this.findConvitePendenteById(id) == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Convite informado não existe");
+        }
 
         conviteAmizadeRepository.deleteById(id);
 
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.OK).body("O convite de amizade foi deletado com SUCESSO.");
     }
 }

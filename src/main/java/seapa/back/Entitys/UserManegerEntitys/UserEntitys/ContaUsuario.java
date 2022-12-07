@@ -9,12 +9,14 @@ import javax.persistence.*;
 @Entity
 @Table(name = "SEAPA_CONTA_USUARIO")
 @NamedQueries(value = {
+        @NamedQuery(name = ContaUsuario.FIND_ALL_CONTAS_USUARIOS_BY_NOME_USUARIO_LIKE, query = ContaUsuario.FIND_ALL_CONTAS_USUARIOS_BY_NOME_USUARIO_LIKE),
         @NamedQuery(name = ContaUsuario.FIND_CONTA_USUARIO_ID_BY_USUARIO_E_SENHA, query = ContaUsuario.FIND_CONTA_USUARIO_ID_BY_USUARIO_E_SENHA)
 })
 @SequenceGenerator(name = "conta_usuario_seq", sequenceName = "conta_usuario_seq", allocationSize = 1, initialValue = 1)
 @Data
 public class ContaUsuario extends Auditable<String> {
 
+    public static final String FIND_ALL_CONTAS_USUARIOS_BY_NOME_USUARIO_LIKE = "SELECT cu FROM ContaUsuario cu WHERE cu.nomeUsuario LIKE CONCAT(:nomeUsuario,'%')";
     public static final String FIND_CONTA_USUARIO_ID_BY_USUARIO_E_SENHA = "SELECT cu.id FROM ContaUsuario cu WHERE cu.nomeUsuario = :nomeUsuario AND cu.senha = :senha";
 
     @Id
