@@ -37,7 +37,7 @@ public class ContaUsuarioController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/{id}")
     public ContaUsuario findContaUsuarioById(@PathVariable Long id) {
-        return contaUsuarioRepository.findById(id).get();
+        return contaUsuarioRepository.findById(id).orElse(null);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -66,9 +66,9 @@ public class ContaUsuarioController {
     public Long findByLogin(@ApiParam @PathVariable String usuario, @ApiParam @PathVariable String senha) {
         Long contaUsuarioId = contaUsuarioService.findContaUsuarioIdByNomeUsuarioAndSenha(usuario, senha);
 
-        if (contaUsuarioId == null) {
-            throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
-        }
+        //if (contaUsuarioId == null) { JA ESTA RETORNANDO NORESULTEXCEPTION
+            //throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+        //}
 
         return contaUsuarioId;
     }
