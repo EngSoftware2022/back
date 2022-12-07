@@ -34,7 +34,7 @@ public class ContaUsuarioController {
         return contaUsuarioRepository.findAll();
     }
 
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.OK)//ajustar
     @GetMapping(value = "/{id}")
     public ContaUsuario findContaUsuarioById(@PathVariable Long id) {
         return contaUsuarioRepository.findById(id).orElse(null);

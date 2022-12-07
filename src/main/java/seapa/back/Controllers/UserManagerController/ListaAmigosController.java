@@ -36,7 +36,7 @@ public class ListaAmigosController {
         return listaAmigosRepository.save(amigo);
     }
 
-    @DeleteMapping(value = "/usuario/amigo/{id}")
+    @DeleteMapping(value = "/usuario/amigo/{id}")//ajustar
     public HttpStatus deleteAmigoById(@PathVariable Long id) {
         if (this.findAllAmigosByUsuarioId(id) == null) {
             return HttpStatus.NOT_FOUND;
