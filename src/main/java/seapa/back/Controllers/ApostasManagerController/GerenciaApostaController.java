@@ -20,6 +20,7 @@ import java.util.Objects;
 public class GerenciaApostaController {
     @Autowired
     private GerenciadorApostasRepository gerenciadorApostasRepository;
+    @Autowired
     private TimeRepository timeRepository;
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -47,8 +48,7 @@ public class GerenciaApostaController {
                 throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
             }
             if (Objects.equals(grupo.getModeradorId(), editarGerenciaAposta.getIdUsuario())) {
-                GerenciadorApostas gerenciaApostaExistente = gerenciadorApostasRepository.findById(editarGerenciaAposta.getIdGerenciaAposta()).isPresent() ?
-                        gerenciadorApostasRepository.findById(editarGerenciaAposta.getIdGerenciaAposta()).get() : null;
+                GerenciadorApostas gerenciaApostaExistente = gerenciadorApostasRepository.findById(editarGerenciaAposta.getIdGerenciaAposta()).isPresent() ? gerenciadorApostasRepository.findById(editarGerenciaAposta.getIdGerenciaAposta()).get() : null;
 
                 if (gerenciaApostaExistente == null) {
                     throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
