@@ -95,11 +95,11 @@ public class ConviteAmizadeController {
             ListaAmigos addNovoAmigoNaListaDoSolicitante = new ListaAmigos();
             ListaAmigos addNovoAmigoNaListaDoSolicitado = new ListaAmigos();
 
-            addNovoAmigoNaListaDoSolicitante.setUsuarioId(conviteAmizade.getSolicitante().getId());
-            addNovoAmigoNaListaDoSolicitante.setAmizadeId(conviteAmizade.getSolicitado().getId());
+            addNovoAmigoNaListaDoSolicitante.setUsuario(conviteAmizade.getSolicitante());
+            addNovoAmigoNaListaDoSolicitante.setAmigo(conviteAmizade.getSolicitado());
 
-            addNovoAmigoNaListaDoSolicitado.setUsuarioId(conviteAmizade.getSolicitado().getId());
-            addNovoAmigoNaListaDoSolicitado.setAmizadeId(conviteAmizade.getSolicitante().getId());
+            addNovoAmigoNaListaDoSolicitado.setUsuario(conviteAmizade.getSolicitado());
+            addNovoAmigoNaListaDoSolicitado.setAmigo(conviteAmizade.getSolicitante());
 
             listaAmigosController.insertNovoAmigo(addNovoAmigoNaListaDoSolicitante);
             listaAmigosController.insertNovoAmigo(addNovoAmigoNaListaDoSolicitado);

@@ -11,9 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ListaAmigosResponse {
 
-    private Long usuarioId;
+    private Long amigoId;
 
-    private String usuarioName;
-
-    private Long amizadeId;
+    private String amigoNomeUsuario;
 }
