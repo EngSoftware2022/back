@@ -49,6 +49,7 @@ public class GerenciaApostaController {
         if (grupo == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+
         if (Objects.equals(grupo.getModeradorId(), editarGerenciaAposta.getIdUsuario())) {
             GerenciadorApostas gerenciaApostaExistente = gerenciadorApostasRepository.findById(editarGerenciaAposta.getIdGerenciaAposta()).isPresent() ? gerenciadorApostasRepository.findById(editarGerenciaAposta.getIdGerenciaAposta()).get() : null;
 
@@ -59,10 +60,9 @@ public class GerenciaApostaController {
             gerenciaApostaAtualizado.setId(gerenciaApostaExistente.getId());
 
             gerenciadorApostasRepository.save(gerenciaApostaAtualizado);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        return null;
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 }
 
