@@ -43,6 +43,9 @@ public class ApostaComum implements Serializable {
     @Column(name = "tipo_gerenciamento")
     private String tipoGerenciamento;
 
+    @Column(name = "status_aposta")
+    private String statusAposta;
+
     @Column(name = "anulado")
     private Boolean anulado;
 
