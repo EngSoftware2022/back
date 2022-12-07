@@ -23,10 +23,10 @@ public class ApostaComum implements Serializable {
     private GerenciadorApostas gerenciador;
 
     @Column(name = "data_inicio")
-    private Date nome;
+    private Date dataInicio;
 
     @Column(name = "data_fim")
-    private Date descricao;
+    private Date dataFim;
 
     @Column(name = "valor_aposta")
     private Float valor;
