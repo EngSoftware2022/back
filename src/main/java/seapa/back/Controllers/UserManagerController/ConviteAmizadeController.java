@@ -36,15 +36,14 @@ public class ConviteAmizadeController {
     @Autowired
     ConviteAmizadeMapper conviteAmizadeMapper;
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<ConviteAmizadeDTO> findConvitePendenteById(@PathVariable Long id) {
-        ConviteAmizade conviteAmizade = conviteAmizadeRepository.findById(id).get();
-        ConviteAmizadeDTO conviteAmizadeDTO = conviteAmizadeMapper.toConviteAmizadeDTO(conviteAmizade);
+  //  @GetMapping(value = "/{id}")
+  //  public ResponseEntity<ConviteAmizadeDTO> findConvitePendenteById(@PathVariable Long id) {
+  //      ConviteAmizade conviteAmizade = conviteAmizadeRepository.findById(id).get();
+   //     ConviteAmizadeDTO conviteAmizadeDTO = conviteAmizadeMapper.toConviteAmizadeDTO(conviteAmizade);
+  //      return ResponseEntity.status(HttpStatus.OK).body(conviteAmizadeDTO);
+  //  }
 
-        return ResponseEntity.status(HttpStatus.OK).body(conviteAmizadeDTO);
-    }
-
-    @GetMapping(value = "/solicitanteId={solicitanteId}")
+    @GetMapping(value = "/{solicitanteId}")
     public ResponseEntity<List<ConviteAmizadeDTO>> findAllConvitesPendentesByUsuarioId(@PathVariable Long solicitanteId) {
         List<ConviteAmizade> convitesDeAmizadePendentes = conviteAmizadeService.findAllConvitesPendentesByUsuarioId(solicitanteId);
         List<ConviteAmizadeDTO> convitesDeAmizadePendentesDTO = conviteAmizadeMapper.toConviteAmizadeDTOList(convitesDeAmizadePendentes);
@@ -52,10 +51,10 @@ public class ConviteAmizadeController {
         return ResponseEntity.status(HttpStatus.OK).body(convitesDeAmizadePendentesDTO);
     }
 
-    @PostMapping(value = "/novoConvite/solicitanteId={solicitanteId}&solicitadoId={solicitadoId}")
+    @PostMapping(value = "/novoConvite")
     public ResponseEntity<ConviteAmizadeDTO> insertConviteAmizade(
-            @PathVariable Long solicitanteId,
-            @PathVariable Long solicitadoId) {
+            @RequestParam Long solicitanteId,
+            @RequestParam Long solicitadoId) {
 
         ConviteAmizade novoConvite = new ConviteAmizade();
 
@@ -71,10 +70,10 @@ public class ConviteAmizadeController {
         return ResponseEntity.status(HttpStatus.CREATED).body(conviteAmizadeDTO);
     }
 
-    @PostMapping(value = "/atualizaConviteAmizade/conviteId={conviteId}&statusConvite={statusConvite}")
+    @PostMapping(value = "/atualizaConviteAmizade/")
     public ResponseEntity<String> atualizaStatusConviteAmizade(
-            @PathVariable Long conviteId,
-            @PathVariable String statusConvite) {
+            @RequestParam Long conviteId,
+            @RequestParam String statusConvite) {
 
         ConviteAmizade conviteAmizade = conviteAmizadeRepository.findById(conviteId).get();
 
@@ -106,9 +105,7 @@ public class ConviteAmizadeController {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity deleteConviteAmizade(@PathVariable Long id) {
-        if (this.findConvitePendenteById(id) == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        conviteAmizadeRepository.findById(id).orElseThrow( () -> new RuntimeException("Não encontrado"));
 
         conviteAmizadeRepository.deleteById(id);
 

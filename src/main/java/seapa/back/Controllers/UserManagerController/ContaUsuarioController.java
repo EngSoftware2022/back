@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
@@ -62,8 +63,8 @@ public class ContaUsuarioController {
     }
 
     @ResponseStatus(HttpStatus.ACCEPTED)
-    @GetMapping(value = "/signin/usuario={usuario}&senha={senha}")
-    public Long findByLogin(@ApiParam @PathVariable String usuario, @ApiParam @PathVariable String senha) {
+    @GetMapping(value = "/signin")
+    public Long findByLogin(@ApiParam @RequestParam String usuario, @ApiParam @RequestParam String senha) {
         Long contaUsuarioId = contaUsuarioService.findContaUsuarioIdByNomeUsuarioAndSenha(usuario, senha);
 
         if (contaUsuarioId == null) {
