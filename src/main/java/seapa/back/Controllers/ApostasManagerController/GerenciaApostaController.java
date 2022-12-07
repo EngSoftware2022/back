@@ -27,7 +27,13 @@ public class GerenciaApostaController {
     @PostMapping
     public void insertGerenciadorAposta(@RequestBody CriarGerenciaAposta gerenciadorApostas) {
         try {
-            GerenciadorApostas gerenciaAposta = gerenciadorApostas.conversor();
+            Grupo grupo = timeRepository.findById(gerenciadorApostas.getGrupoId()).isPresent() ? timeRepository.findById(gerenciadorApostas.getGrupoId()).get() : null;
+
+            if (grupo == null) {
+                throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+            }
+
+            GerenciadorApostas gerenciaAposta = gerenciadorApostas.conversor(grupo);
             gerenciadorApostasRepository.save(gerenciaAposta);
         } catch (Exception e) {
             throw new HttpClientErrorException(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -53,7 +59,7 @@ public class GerenciaApostaController {
                 if (gerenciaApostaExistente == null) {
                     throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
                 }
-                GerenciadorApostas gerenciaApostaAtualizado = editarGerenciaAposta.conversor();
+                GerenciadorApostas gerenciaApostaAtualizado = editarGerenciaAposta.conversor(grupo);
                 gerenciaApostaAtualizado.setId(gerenciaApostaExistente.getId());
 
                 gerenciadorApostasRepository.save(gerenciaApostaAtualizado);

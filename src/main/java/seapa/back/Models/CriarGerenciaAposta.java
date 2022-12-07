@@ -3,6 +3,7 @@ package seapa.back.Models;
 import lombok.Data;
 import seapa.back.Entitys.UserManegerEntitys.ApostasEntitys.GerenciadorApostas;
 import seapa.back.Entitys.UserManegerEntitys.EquipesEntitys.Equipe;
+import seapa.back.Entitys.UserManegerEntitys.GrupoEntitys.Grupo;
 
 import java.util.Date;
 
@@ -23,9 +24,9 @@ public class CriarGerenciaAposta {
 
     private String tipoGerenciamento;
 
-    public GerenciadorApostas conversor() {
+    public GerenciadorApostas conversor(Grupo grupo) {
         GerenciadorApostas aposta = new GerenciadorApostas();
-        aposta.setId(this.grupoId);
+        aposta.setGrupo(grupo);
         aposta.setDataInicio(this.dataInicio);
         aposta.setDataFim(this.dataFim);
         aposta.setTipoEsporte(this.tipoEsporte);
