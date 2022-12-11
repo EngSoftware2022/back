@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import seapa.back.Entitys.UserManegerEntitys.GrupoEntitys.ConviteGrupo;
 import seapa.back.Entitys.UserManegerEntitys.GrupoEntitys.Grupo;
@@ -48,7 +49,7 @@ public class TeamManagerController {
     }
 
     @PostMapping(value = "/novomembro")
-    public HttpStatus incluirPessoas(@PathVariable Long idGrupo, @PathVariable Long idConvidado){
+    public HttpStatus incluirPessoas(@RequestParam Long idGrupo, @RequestParam Long idConvidado){
        Grupo grupo = timeRepository.findById(idGrupo).get();
        ConviteGrupo conviteGrupo = new ConviteGrupo();
        conviteGrupo.setGrupo(grupo);
@@ -58,38 +59,38 @@ public class TeamManagerController {
     }
 
     @GetMapping(value = "/listarmembros")
-    public List<IntegrantesGrupo> listarMembros(@PathVariable Long idGrupo){
+    public List<IntegrantesGrupo> listarMembros(@RequestParam Long idGrupo){
         return repositorioAuxiliar.findByGrupo(idGrupo);
     }
 
     @DeleteMapping()
-    public HttpStatus deletarGrupo(@PathVariable Long idGrupo){
+    public HttpStatus deletarGrupo(@RequestParam Long idGrupo){
         timeRepository.deleteById(idGrupo);
         return HttpStatus.OK;
     }
 
     @GetMapping(value = "/listaradministracao")
-    public List<Grupo> ListarOndeSouAdmin(@PathVariable Long idUsuario){
+    public List<Grupo> ListarOndeSouAdmin(@RequestParam Long idUsuario){
         return repositorioAuxiliar.findGruposOndeSouAdmin(idUsuario);
     }
 
     @GetMapping(value = "/listarparticipacao")
-    public List<Grupo> ListarOndeSouMembro(@PathVariable Long idUsuario){
+    public List<Grupo> ListarOndeSouMembro(@RequestParam Long idUsuario){
         return repositorioAuxiliar.findGruposOndeSouMembro(idUsuario);
     }
 
     @PostMapping(value = "/listarConvites")
-    public List<ConviteGrupo> listaDeConvides(@PathVariable Long idUsuario){
+    public List<ConviteGrupo> listaDeConvides(@RequestParam Long idUsuario){
         return repositorioAuxiliar.findConvitesDeGrupo(idUsuario);
     }
 
     @PostMapping(value = "/aceitarConvite")
-    public HttpStatus aceitarConvite(@PathVariable Long idUsuario, @PathVariable boolean aceito){//terminar
+    public HttpStatus aceitarConvite(@RequestParam Long idUsuario, @RequestParam boolean aceito){//terminar
         return HttpStatus.OK;
     }
 
     @DeleteMapping(value = "/deletarMembro")
-    public HttpStatus retirarMembro(@PathVariable Long idUsuario, @PathVariable Long idGrupo){
+    public HttpStatus retirarMembro(@RequestParam Long idUsuario, @RequestParam Long idGrupo){
         IntegrantesGrupo integrante = repositorioAuxiliar.findIntegranteByIdUsuario(idUsuario, idGrupo);
         integrantesRepository.delete(integrante);
         return HttpStatus.OK;

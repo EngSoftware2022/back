@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
-import static seapa.back.Entitys.UserManegerEntitys.UserEntitys.ConviteAmizade.FIND_ALL_CONVITES_PENDENTES_BY_SOLICITANTE_ID;
+import static seapa.back.Entitys.UserManegerEntitys.UserEntitys.ConviteAmizade.FIND_ALL_CONVITES_PENDENTES_BY_SOLICITADO_ID;
 
 @Service
 @Transactional
@@ -49,9 +49,9 @@ public class ConviteAmizadeService {
     }
     */
 
-    public List<ConviteAmizade> findAllConvitesPendentesByUsuarioId(Long solicitanteId) {
-        Query query = this.em.createNamedQuery(FIND_ALL_CONVITES_PENDENTES_BY_SOLICITANTE_ID);
-        query.setParameter("solicitanteId", solicitanteId);
+    public List<ConviteAmizade> findAllConvitesPendentesByUsuarioId(Long solicitadoId) {
+        Query query = this.em.createNamedQuery(FIND_ALL_CONVITES_PENDENTES_BY_SOLICITADO_ID);
+        query.setParameter("solicitadoId", solicitadoId);
 
         return query.getResultList();
     }

@@ -2,12 +2,16 @@ package seapa.back.Services.UserManagerService;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ContaUsuario;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import static seapa.back.Entitys.UserManegerEntitys.UserEntitys.ContaUsuario.FIND_CONTA_USUARIO_ID_BY_USUARIO_E_SENHA;
+import java.util.List;
+import java.util.Optional;
+
+import static seapa.back.Entitys.UserManegerEntitys.UserEntitys.ContaUsuario.*;
 
 @Service
 @Transactional
@@ -15,6 +19,13 @@ public class ContaUsuarioService {
 
     @PersistenceContext
     private EntityManager em;
+
+    public List<ContaUsuario> findContaUsuarioByNomeUsuario(String nomeUsuario) {
+        Query query = this.em.createNamedQuery(FIND_ALL_CONTAS_USUARIOS_BY_NOME_USUARIO_LIKE);
+        query.setParameter("nomeUsuario", nomeUsuario);
+
+        return query.getResultList();
+    }
 
     public Long findContaUsuarioIdByNomeUsuarioAndSenha(String nomeUsuario, String senha) {
         Query query = this.em.createNamedQuery(FIND_CONTA_USUARIO_ID_BY_USUARIO_E_SENHA);
