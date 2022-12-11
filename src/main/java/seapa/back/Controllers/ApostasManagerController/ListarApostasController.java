@@ -22,22 +22,27 @@ public class ListarApostasController {
     private GerenciadorApostasRepository gerenciadorApostas;
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/grupo/{grupo_ID}")
-    public List<ApostaComum> getAllApostas(@PathVariable Long grupo_ID){
-        GerenciadorApostas gerAp = gerenciadorApostas.findById(grupo_ID).get();
-        List<ApostaComum> apostas = gerAp.getApostas();
+    @GetMapping(value = "/interface/{interface_id}")
+    public List<ApostaComum> getApostasDaInterface(@PathVariable Long interface_id){
+        GerenciadorApostas gerAp = gerenciadorApostas.findById(interface_id).isPresent() ? gerenciadorApostas.findById(interface_id).get() : null;
 
-        /*
-        List<Long> ids = null;
-
-        for(int i = 0; i < gerAp.getApostas().size(); i++){
-            ids.add(gerAp.getApostas().get(i).getId());
+        if(gerAp == null){
+            return null;
         }
 
-        List<ApostaComum> apostas = null;
-        for(int i = 0; i < ids.size(); i++){
-            apostas.add(listarApostas.findById(ids.get(i)).get());
-        }*/
+        List<ApostaComum> apostas = gerenciadorApostas.findById(interface_id).get().getApostas();
+
+        return apostas;
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping
+    public List<ApostaComum> getAllApostas(){
+        List<ApostaComum> apostas = listarApostas.findAll();
+
+        if(apostas.size() == 0){
+            return null;
+        }
 
         return apostas;
     }
