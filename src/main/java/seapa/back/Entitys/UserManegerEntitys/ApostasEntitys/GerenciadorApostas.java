@@ -33,14 +33,6 @@ public class GerenciadorApostas extends Auditable<String> implements Serializabl
     @Column(name = "tipo_esporte")
     private String tipoEsporte;
 
-    @JoinColumn(name = "equipe_id")
-    @Column(name = "equipe_alpha_id")
-    private Equipe equipeAlpha;
-
-    @JoinColumn(name = "equipe_id")
-    @Column(name = "equipe_beta_id")
-    private Equipe equipeBeta;
-
     @Column(name = "tipo_gerenciamento")
     private String tipoGerenciamento;
 

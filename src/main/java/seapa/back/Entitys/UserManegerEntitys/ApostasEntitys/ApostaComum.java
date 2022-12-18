@@ -1,7 +1,6 @@
 package seapa.back.Entitys.UserManegerEntitys.ApostasEntitys;
 
 import lombok.Data;
-import seapa.back.Entitys.UserManegerEntitys.EquipesEntitys.Equipe;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,34 +21,32 @@ public class ApostaComum implements Serializable {
     @JoinColumn(name = "gerenciador_aposta_id")
     private GerenciadorApostas gerenciador;
 
+    @Column(name = "id_moderador")
+    private Long idModerador;
+
     @Column(name = "data_inicio")
-    private Date nome;
+    private Date dataInicio;
 
     @Column(name = "data_fim")
-    private Date descricao;
+    private Date dataFim;
 
-    @Column(name = "valor_aposta")
-    private Float valor;
-
-    @JoinColumn(name = "equipe_vencedora_id")
-    private Equipe vencedor;
-
-    @Column(name = "empate")
-    private Boolean empate;
+    @Column(name = "evento")
+    private String evento;
 
     @Column(name = "tipo_aposta")
     private String tipoAposta;
 
     @Column(name = "tipo_gerenciamento")
-    private String tipoGerenciamento;
+    private Boolean tipoGerenciamento;
 
     @Column(name = "status_aposta")
     private String statusAposta;
 
-    @Column(name = "anulado")
-    private Boolean anulado;
-
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="conta_usuario_id")
     private List<ParticipanteAposta> apostadores;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="conta_usuario_id")
+    private List<ParticipanteAposta> vencedores;
 }

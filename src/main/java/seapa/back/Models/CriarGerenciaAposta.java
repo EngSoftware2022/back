@@ -35,8 +35,8 @@ public class CriarGerenciaAposta {
         equipeAlpha.setId(this.idEquipeAlpha);
         Equipe equipeBeta = new Equipe();
         equipeBeta.setId(this.idEquipeBeta);
-        aposta.setEquipeAlpha(equipeAlpha);
-        aposta.setEquipeBeta(equipeBeta);
+        //aposta.setEquipeAlpha(equipeAlpha);
+        //aposta.setEquipeBeta(equipeBeta);
         return aposta;
     }
 }
