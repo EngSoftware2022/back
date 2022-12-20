@@ -6,6 +6,7 @@ import seapa.back.Entitys.UserManegerEntitys.ApostasEntitys.GerenciadorApostas;
 import seapa.back.Entitys.UserManegerEntitys.ApostasEntitys.ParticipanteAposta;
 import seapa.back.Entitys.UserManegerEntitys.EquipesEntitys.Equipe;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class CriarAposta {
 
     private Float valorAposta;
 
-    private Long idEquipeVencedora;
+    //private Long idEquipeVencedora;
 
     private Boolean empate;
 
@@ -29,21 +30,24 @@ public class CriarAposta {
 
     private String tipoGerenciamento;
 
+    private List<ParticipanteAposta> ganhadores = new ArrayList<>();
+
     public ApostaComum conversor(GerenciadorApostas gerenciadorApostas, List<ParticipanteAposta> participantesAposta) {
         ApostaComum aposta = new ApostaComum();
         aposta.setGerenciador(gerenciadorApostas);
         aposta.setDataInicio(this.dataInicio);
         aposta.setDataFim(this.dataFim);
-        aposta.setValor(this.valorAposta);
-        Equipe equipeVencedora = new Equipe();
-        equipeVencedora.setId(this.idEquipeVencedora);
-        aposta.setVencedor(equipeVencedora);
+        //aposta.setValor(this.valorAposta);
+        //Equipe equipeVencedora = new Equipe();
+        //equipeVencedora.setId(this.idEquipeVencedora);
+        //aposta.setVencedor(equipeVencedora);
         aposta.setEmpate(this.empate);
         aposta.setTipoAposta(this.tipoAposta);
         aposta.setTipoGerenciamento(this.tipoGerenciamento);
         aposta.setStatusAposta("Aguardando"); //TODO: não tô ligado os status possíveis
         aposta.setApostadores(participantesAposta);
-        aposta.setAnulado(false);
+        aposta.setVencedores(this.ganhadores);
+        //aposta.setAnulado(false);
         return aposta;
     }
 }

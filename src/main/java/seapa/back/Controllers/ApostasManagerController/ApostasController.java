@@ -37,12 +37,18 @@ public class ApostasController {
 
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping(value = "/{apostaID}&{grupoID}&{userID}")
-    public void deleteAposta(@PathVariable Long apostaID, @PathVariable Long grupoID, @PathVariable Long userID) {
+    public ResponseEntity<Object> deleteAposta(@PathVariable Long apostaID, @PathVariable Long grupoID, @PathVariable Long userID) {
         if (timeRepository.findById(grupoID).get().getModeradorId() == userID) {
-            if ((apostasRepository.findById(apostaID).get().getStatusAposta() == "Encerrada") || (apostasRepository.findById(apostaID).get().getStatusAposta() == "Não iniciada")) {
+            if ((apostasRepository.findById(apostaID).get().getStatusAposta() == "Fechada") || (apostasRepository.findById(apostaID).get().getStatusAposta() == "Aguardando")) {
                 apostasRepository.deleteById(apostaID);
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -67,8 +73,9 @@ public class ApostasController {
         }
 
         ParticipanteAposta participanteAposta = new ParticipanteAposta();
-        participanteAposta.setParticipanteAposta(contaUsuario);
-        participanteAposta.setLadoEscolhido(criarAposta.getIdEquipeVencedora().toString());
+        //participanteAposta.setParticipanteAposta(contaUsuario);
+        participanteAposta.setIdApostador(contaUsuario.getId());
+        //participanteAposta.setLadoEscolhido(criarAposta.getIdEquipeVencedora().toString());
 
         List<ParticipanteAposta> participantesAposta = new ArrayList<>();
 
@@ -77,7 +84,8 @@ public class ApostasController {
 
         apostasRepository.save(aposta);
 
-        participanteAposta.setAposta(aposta);
+        //participanteAposta.setAposta(aposta);
+        participanteAposta.setIdAposta(aposta.getId());
 
         participanteApostaRepository.save(participanteAposta);
 
