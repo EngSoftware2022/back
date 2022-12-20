@@ -1,11 +1,15 @@
 package seapa.back.Models;
 
 import lombok.Data;
+import seapa.back.Entitys.UserManegerEntitys.ApostasEntitys.ApostaComum;
 import seapa.back.Entitys.UserManegerEntitys.ApostasEntitys.GerenciadorApostas;
 import seapa.back.Entitys.UserManegerEntitys.EquipesEntitys.Equipe;
 import seapa.back.Entitys.UserManegerEntitys.GrupoEntitys.Grupo;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class CriarGerenciaAposta {
