@@ -136,20 +136,20 @@ public class GerenciaApostaController {
     @PostMapping(value = "/editarGerenciaAposta")
     public ResponseEntity<Object> editarGerenciadorAposta(@RequestBody EditarGerenciaAposta editarGerenciaAposta) {
         if (Objects.equals(editarGerenciaAposta.getDataInicio(), new Date())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
         Grupo grupo = timeRepository.findById(editarGerenciaAposta.getGrupoId()).isPresent() ? timeRepository.findById(editarGerenciaAposta.getGrupoId()).get() : null;
 
         if (grupo == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
         if (Objects.equals(grupo.getModeradorId(), editarGerenciaAposta.getIdUsuario())) {
             GerenciadorApostas gerenciaApostaExistente = gerenciadorApostasRepository.findById(editarGerenciaAposta.getIdGerenciaAposta()).isPresent() ? gerenciadorApostasRepository.findById(editarGerenciaAposta.getIdGerenciaAposta()).get() : null;
 
             if (gerenciaApostaExistente == null) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
             GerenciadorApostas gerenciaApostaAtualizado = editarGerenciaAposta.conversor(grupo);
             gerenciaApostaAtualizado.setId(gerenciaApostaExistente.getId());
