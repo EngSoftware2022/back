@@ -30,6 +30,15 @@ public class ApostaComum implements Serializable {
     @Column(name = "data_fim")
     private Date dataFim;
 
+    //@Column(name = "valor_aposta")
+    //private Float valor;
+
+    //@JoinColumn(name = "equipe_vencedora_id")
+    //private Equipe vencedor;
+
+    @Column(name = "empate")
+    private Boolean empate;
+
     @Column(name = "evento")
     private String evento;
 
@@ -37,10 +46,13 @@ public class ApostaComum implements Serializable {
     private String tipoAposta;
 
     @Column(name = "tipo_gerenciamento")
-    private Boolean tipoGerenciamento;
+    private String tipoGerenciamento;
 
     @Column(name = "status_aposta")
     private String statusAposta;
+
+    //@Column(name = "anulado")
+    //private Boolean anulado;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="conta_usuario_id")

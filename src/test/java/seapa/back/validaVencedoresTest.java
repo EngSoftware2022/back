@@ -114,8 +114,8 @@ public class validaVencedoresTest {
 
         apostaController.validarVencedores(apostaModel);
 
-        Extrato extrato = controller.getSaldo(2L);
-        BigDecimal bigDecimal = new BigDecimal(50.00).setScale(2);
+        Extrato extrato = controller.getSaldo(1L);
+        BigDecimal bigDecimal = new BigDecimal(190.00).setScale(2);
         assertEquals(extrato.getSaldoAtual(), bigDecimal);
     }
 

@@ -35,10 +35,10 @@ public class CriarGerenciaAposta {
         aposta.setDataFim(this.dataFim);
         aposta.setTipoEsporte(this.tipoEsporte);
         aposta.setTipoGerenciamento(this.tipoGerenciamento);
-        Equipe equipeAlpha = new Equipe();
-        equipeAlpha.setId(this.idEquipeAlpha);
-        Equipe equipeBeta = new Equipe();
-        equipeBeta.setId(this.idEquipeBeta);
+        //Equipe equipeAlpha = new Equipe();
+        //equipeAlpha.setId(this.idEquipeAlpha);
+        //Equipe equipeBeta = new Equipe();
+        //equipeBeta.setId(this.idEquipeBeta);
         //aposta.setEquipeAlpha(equipeAlpha);
         //aposta.setEquipeBeta(equipeBeta);
         return aposta;
