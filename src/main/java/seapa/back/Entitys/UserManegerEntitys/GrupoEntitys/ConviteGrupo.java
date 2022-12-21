@@ -13,12 +13,11 @@ public class ConviteGrupo {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(nullable = false)
-    private String nomeAdmGrupo;
+   // @Column(nullable = false)
+   // private String nomeAdmGrupo;
 
     @Column(nullable = false)
     private Long idUsuarioConvidado;
 
-    @ManyToOne
-    private Grupo grupo;
+    private Long grupo;
 }

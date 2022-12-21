@@ -10,13 +10,10 @@ public class CriarGrupoModel {
 
     private Long moderadorId;
 
-    private String nomeModerador;
-
     public Grupo toGrupo() {
         Grupo grupo = new Grupo();
         grupo.setModeradorId(getModeradorId());
         grupo.setNomeGrupo(getNomeGrupo());
-        grupo.setNomeModerador(getNomeModerador());
         return grupo;
     }
 }

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +20,8 @@ import seapa.back.Repository.TeamManagerRepository.TimeRepository;
 import seapa.back.Repository.UserManagerRepository.ContaUsuarioRepository;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/team")
@@ -44,6 +45,12 @@ public class TeamManagerController {
     @PostMapping
     public HttpStatus criarGrupo(@RequestBody CriarGrupoModel grupoModel){
         Grupo grupo = grupoModel.toGrupo();
+        String nomeModerador = repositorioAuxiliar.findNomeUsuarioById(grupoModel.getModeradorId());
+        grupo.setNomeModerador(nomeModerador);
+        IntegrantesGrupo integrantesGrupo = new IntegrantesGrupo();
+        integrantesGrupo.setNomeUsuario(nomeModerador);
+        integrantesGrupo.setIdUsuarioIntegrante(grupo.getModeradorId());
+        grupo.setIntegrantes(integrantesGrupo);
         timeRepository.save(grupo);
         return HttpStatus.OK;
     }
@@ -52,15 +59,17 @@ public class TeamManagerController {
     public HttpStatus incluirPessoas(@RequestParam Long idGrupo, @RequestParam Long idConvidado){
        Grupo grupo = timeRepository.findById(idGrupo).get();
        ConviteGrupo conviteGrupo = new ConviteGrupo();
-       conviteGrupo.setGrupo(grupo);
+       conviteGrupo.setGrupo(grupo.getId());
        conviteGrupo.setIdUsuarioConvidado(idConvidado);
-       conviteGrupo.setNomeAdmGrupo(grupo.getNomeModerador());
+       conviteRepository.save(conviteGrupo);
+       //conviteGrupo.setNomeAdmGrupo(grupo.getNomeModerador());
        return HttpStatus.OK;
     }
 
     @GetMapping(value = "/listarmembros")
     public List<IntegrantesGrupo> listarMembros(@RequestParam Long idGrupo){
-        return repositorioAuxiliar.findByGrupo(idGrupo);
+        Grupo grupo = Optional.ofNullable( repositorioAuxiliar.findByGrupo(idGrupo)).orElseThrow(() -> new RuntimeException("Id do grupo invalido"));
+        return grupo.getIntegrantes();
     }
 
     @DeleteMapping()
@@ -79,20 +88,39 @@ public class TeamManagerController {
         return repositorioAuxiliar.findGruposOndeSouMembro(idUsuario);
     }
 
-    @PostMapping(value = "/listarConvites")
+    @GetMapping(value = "/listarConvites")
     public List<ConviteGrupo> listaDeConvides(@RequestParam Long idUsuario){
-        return repositorioAuxiliar.findConvitesDeGrupo(idUsuario);
+        List<ConviteGrupo> convites = repositorioAuxiliar.findConvitesDeGrupo(idUsuario);
+        return convites;
     }
 
     @PostMapping(value = "/aceitarConvite")
-    public HttpStatus aceitarConvite(@RequestParam Long idUsuario, @RequestParam boolean aceito){//terminar
+    public HttpStatus aceitarConvite(@RequestParam Long idUsuario, @RequestParam Long idGrupo , @RequestParam boolean aceito){
+        Grupo grupo = Optional.ofNullable( repositorioAuxiliar.findConviteGrupoEspecifico(idGrupo)).orElseThrow(() -> new RuntimeException("Id do grupo invalido"));
+        String nomeUsuario = Optional.ofNullable( repositorioAuxiliar.findNomeUsuarioById(idUsuario) ).orElseThrow(()-> new RuntimeException("Id do usuario invalido"));
+
+        if(aceito){
+            IntegrantesGrupo novoIntegrante = new IntegrantesGrupo();
+            novoIntegrante.setIdUsuarioIntegrante(idUsuario);
+            novoIntegrante.setNomeUsuario(nomeUsuario);
+            grupo.setIntegrantes(novoIntegrante);
+            timeRepository.save(grupo);
+        }
+        ConviteGrupo conviteGrupo = repositorioAuxiliar.findConvitesDeGrupo(idGrupo, idUsuario);
+        conviteRepository.delete(conviteGrupo);
         return HttpStatus.OK;
     }
 
     @DeleteMapping(value = "/deletarMembro")
     public HttpStatus retirarMembro(@RequestParam Long idUsuario, @RequestParam Long idGrupo){
-        IntegrantesGrupo integrante = repositorioAuxiliar.findIntegranteByIdUsuario(idUsuario, idGrupo);
-        integrantesRepository.delete(integrante);
+        Grupo grupo = Optional.ofNullable( repositorioAuxiliar.findByGrupo(idGrupo)).orElseThrow(() -> new RuntimeException("Id do grupo invalido"));
+        List<IntegrantesGrupo> integrantesGrupos = grupo.getIntegrantes().stream().filter( i -> i.getIdUsuarioIntegrante() == idUsuario).collect(Collectors.toList());
+        if(integrantesGrupos.size() > 1){
+            throw new RuntimeException("Filtro para exclusão falhou"); //nunca deveria entrar aqui
+        }
+        grupo.getIntegrantes().removeIf( i -> i.getIdUsuarioIntegrante() == idUsuario);
+        timeRepository.save(grupo);
+        integrantesRepository.delete(integrantesGrupos.get(0));
         return HttpStatus.OK;
     }
 

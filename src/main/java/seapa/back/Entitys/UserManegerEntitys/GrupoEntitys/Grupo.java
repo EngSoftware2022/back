@@ -4,6 +4,7 @@ import lombok.Data;
 import seapa.back.Audit.Auditable;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,8 +25,11 @@ public class Grupo extends Auditable<String> {
     @Column(nullable = false)
     private String nomeModerador;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "integrantes.id")
-    private List<IntegrantesGrupo> integrantes;
+    private List<IntegrantesGrupo> integrantes = new ArrayList<>();
 
+    public void setIntegrantes(IntegrantesGrupo integrantes) {
+        this.integrantes.add(integrantes);
+    }
 }
