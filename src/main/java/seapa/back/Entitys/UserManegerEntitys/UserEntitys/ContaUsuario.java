@@ -1,9 +1,12 @@
 package seapa.back.Entitys.UserManegerEntitys.UserEntitys;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import seapa.back.Audit.Auditable;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -38,6 +41,10 @@ public class ContaUsuario extends Auditable<String> {
 
     @Column(name = "status_conta", nullable = false)
     private String statusConta;
+
+    @JsonIgnore
+    @OneToMany(mappedBy="usuario", cascade=CascadeType.ALL, orphanRemoval = true)
+    private Set<ListaAmigos> amigos = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "extrato_id")

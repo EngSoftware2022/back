@@ -1,11 +1,15 @@
 package seapa.back.Models;
 
 import lombok.Data;
+import seapa.back.Entitys.UserManegerEntitys.ApostasEntitys.ApostaComum;
 import seapa.back.Entitys.UserManegerEntitys.ApostasEntitys.GerenciadorApostas;
 import seapa.back.Entitys.UserManegerEntitys.EquipesEntitys.Equipe;
 import seapa.back.Entitys.UserManegerEntitys.GrupoEntitys.Grupo;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class CriarGerenciaAposta {
@@ -31,12 +35,12 @@ public class CriarGerenciaAposta {
         aposta.setDataFim(this.dataFim);
         aposta.setTipoEsporte(this.tipoEsporte);
         aposta.setTipoGerenciamento(this.tipoGerenciamento);
-        Equipe equipeAlpha = new Equipe();
-        equipeAlpha.setId(this.idEquipeAlpha);
-        Equipe equipeBeta = new Equipe();
-        equipeBeta.setId(this.idEquipeBeta);
-        aposta.setEquipeAlpha(equipeAlpha);
-        aposta.setEquipeBeta(equipeBeta);
+        //Equipe equipeAlpha = new Equipe();
+        //equipeAlpha.setId(this.idEquipeAlpha);
+        //Equipe equipeBeta = new Equipe();
+        //equipeBeta.setId(this.idEquipeBeta);
+        //aposta.setEquipeAlpha(equipeAlpha);
+        //aposta.setEquipeBeta(equipeBeta);
         return aposta;
     }
 }
