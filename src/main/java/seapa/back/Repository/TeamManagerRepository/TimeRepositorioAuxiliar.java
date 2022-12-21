@@ -47,6 +47,7 @@ public class TimeRepositorioAuxiliar {
 
         Query query = baseRepository.getSession().createQuery(hql.toString(),Grupo.class);
         query.setParameter("idUsu",idUsuario);
+
         return query.list();
     }
 
