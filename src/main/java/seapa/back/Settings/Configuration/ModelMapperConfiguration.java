@@ -4,7 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ConviteAmizade;
-import seapa.back.Models.ConviteAmizadeDTO;
+import seapa.back.Models.DTOs.ConviteAmizadeDTO;
 
 @Configuration
 public class ModelMapperConfiguration {

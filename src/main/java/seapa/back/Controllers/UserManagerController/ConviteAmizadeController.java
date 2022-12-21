@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ConviteAmizade;
 import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ListaAmigos;
-import seapa.back.Models.ConviteAmizadeDTO;
+import seapa.back.Models.DTOs.ConviteAmizadeDTO;
 import seapa.back.Repository.UserManagerRepository.ContaUsuarioRepository;
 import seapa.back.Repository.UserManagerRepository.ConviteAmizadeRepository;
 import seapa.back.Services.UserManagerService.ConviteAmizadeService;

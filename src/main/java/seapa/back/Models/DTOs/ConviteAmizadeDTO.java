@@ -1,4 +1,4 @@
-package seapa.back.Models;
+package seapa.back.Models.DTOs;
 
 
 import lombok.Getter;

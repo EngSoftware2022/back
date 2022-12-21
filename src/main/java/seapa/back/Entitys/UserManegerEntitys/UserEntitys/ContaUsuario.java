@@ -3,6 +3,7 @@ package seapa.back.Entitys.UserManegerEntitys.UserEntitys;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import seapa.back.Audit.Auditable;
+import seapa.back.Entitys.UserManegerEntitys.UserEntitys.CarteiraEntitys.Banca;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -41,6 +42,10 @@ public class ContaUsuario extends Auditable<String> {
 
     @Column(name = "status_conta", nullable = false)
     private String statusConta;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "banca_id")
+    private Banca banca;
 
     @JsonIgnore
     @OneToMany(mappedBy="usuario", cascade=CascadeType.ALL, orphanRemoval = true)

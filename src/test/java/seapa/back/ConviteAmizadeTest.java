@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import seapa.back.Controllers.UserManagerController.ConviteAmizadeController;
 import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ContaUsuario;
 import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ConviteAmizade;
-import seapa.back.Models.ConviteAmizadeDTO;
+import seapa.back.Models.DTOs.ConviteAmizadeDTO;
 import seapa.back.Repository.UserManagerRepository.ContaUsuarioRepository;
 import seapa.back.Repository.UserManagerRepository.ConviteAmizadeRepository;
 

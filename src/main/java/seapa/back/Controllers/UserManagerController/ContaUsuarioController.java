@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ContaUsuario;
-import seapa.back.Models.ContaUsuarioDTO;
+import seapa.back.Models.DTOs.ContaUsuarioDTO;
 import seapa.back.Models.UsuarioModel;
 import seapa.back.Repository.UserManagerRepository.ContaUsuarioRepository;
 import seapa.back.Services.UserManagerService.ContaUsuarioService;
