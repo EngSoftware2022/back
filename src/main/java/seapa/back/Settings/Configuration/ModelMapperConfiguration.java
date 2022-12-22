@@ -6,8 +6,12 @@ import org.springframework.context.annotation.Configuration;
 import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ConviteAmizade;
 import seapa.back.Models.DTOs.ConviteAmizadeDTO;
 
+import java.text.SimpleDateFormat;
+
 @Configuration
 public class ModelMapperConfiguration {
+
+    SimpleDateFormat sdf = new SimpleDateFormat ("dd/MM/yyyy HH:mm:ss");
 
     @Bean
     public ModelMapper modelMapper() {

@@ -1,6 +1,7 @@
 package seapa.back.Models;
 
 import lombok.Data;
+import seapa.back.Entitys.UserManegerEntitys.UserEntitys.CarteiraEntitys.Banca;
 import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ContaUsuario;
 import seapa.back.Entitys.UserManegerEntitys.UserEntitys.Usuario;
 import seapa.back.Utils.StatusContaEnum;
@@ -39,6 +40,10 @@ public class UsuarioModel {
         usuario.setSobrenome(this.ultimoNome);
         usuario.setTelefone(this.telefone);
         user.setUsuario(usuario);
+        Banca banca = new Banca();
+        banca.setUsuario(user);
+        user.setBanca(banca);
+
         return user;
     }
 
