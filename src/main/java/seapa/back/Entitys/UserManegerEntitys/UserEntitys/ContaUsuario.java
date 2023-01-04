@@ -14,8 +14,7 @@ import java.util.Set;
 @Table(name = "SEAPA_CONTA_USUARIO")
 @NamedQueries(value = {
         @NamedQuery(name = ContaUsuario.FIND_ALL_CONTAS_USUARIOS_BY_NOME_USUARIO_LIKE, query = ContaUsuario.FIND_ALL_CONTAS_USUARIOS_BY_NOME_USUARIO_LIKE),
-        @NamedQuery(name = ContaUsuario.FIND_CONTA_USUARIO_ID_BY_USUARIO_E_SENHA, query = ContaUsuario.FIND_CONTA_USUARIO_ID_BY_USUARIO_E_SENHA)
-})
+        @NamedQuery(name = ContaUsuario.FIND_CONTA_USUARIO_ID_BY_USUARIO_E_SENHA, query = ContaUsuario.FIND_CONTA_USUARIO_ID_BY_USUARIO_E_SENHA)})
 @SequenceGenerator(name = "conta_usuario_seq", sequenceName = "conta_usuario_seq", allocationSize = 1, initialValue = 1)
 @Data
 public class ContaUsuario extends Auditable<String> {

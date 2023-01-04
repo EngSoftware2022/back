@@ -41,7 +41,6 @@ public class UsuarioModel {
         usuario.setTelefone(this.telefone);
         user.setUsuario(usuario);
         Banca banca = new Banca();
-        banca.setUsuario(user);
         user.setBanca(banca);
 
         return user;

@@ -6,5 +6,4 @@ import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ContaUsuario;
 
 @Repository
 public interface ContaUsuarioRepository extends JpaRepository<ContaUsuario, Long> {
-
 }

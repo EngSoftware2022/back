@@ -2,7 +2,6 @@ package seapa.back.Entitys.UserManegerEntitys.UserEntitys.CarteiraEntitys;
 
 import lombok.Data;
 import seapa.back.Audit.Auditable;
-import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ContaUsuario;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,10 +17,6 @@ public class Banca extends Auditable<String> implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "banca_usuario_seq")
     private Long id;
-
-    @OneToOne
-    @JoinColumn(name = "usuario_id")
-    private ContaUsuario usuario;
 
     @Column(name = "saldo")
     private BigDecimal saldo = BigDecimal.ZERO;

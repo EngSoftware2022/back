@@ -7,11 +7,10 @@ import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ContaUsuario;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 import java.util.List;
-import java.util.Optional;
 
-import static seapa.back.Entitys.UserManegerEntitys.UserEntitys.ContaUsuario.*;
+import static seapa.back.Entitys.UserManegerEntitys.UserEntitys.ContaUsuario.FIND_ALL_CONTAS_USUARIOS_BY_NOME_USUARIO_LIKE;
+import static seapa.back.Entitys.UserManegerEntitys.UserEntitys.ContaUsuario.FIND_CONTA_USUARIO_ID_BY_USUARIO_E_SENHA;
 
 @Service
 @Transactional

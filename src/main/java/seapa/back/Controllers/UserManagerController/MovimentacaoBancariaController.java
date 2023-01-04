@@ -1,5 +1,6 @@
 package seapa.back.Controllers.UserManagerController;
 
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,13 +10,15 @@ import seapa.back.Entitys.UserManegerEntitys.UserEntitys.CarteiraEntitys.Movimen
 import seapa.back.Models.DTOs.BancaUsuarioDTO;
 import seapa.back.Models.DTOs.MovimentacaoMonetariaDTO;
 import seapa.back.Repository.UserManagerRepository.BancaRepository;
+import seapa.back.Repository.UserManagerRepository.ContaUsuarioRepository;
 import seapa.back.Repository.UserManagerRepository.MovimentacaoMonetariaRepository;
-import seapa.back.Services.UserManagerService.MovimentacaoMonetariaService;
+import seapa.back.Services.UserManagerService.ContaUsuarioService;
 import seapa.back.Settings.Mappers.BancaMapper;
 import seapa.back.Settings.Mappers.MovimentacaoMonetariaMapper;
 import seapa.back.Utils.TiposMovimentacaoBancariaEnum;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,13 +27,16 @@ import java.util.Optional;
 public class MovimentacaoBancariaController {
 
     @Autowired
+    private ContaUsuarioRepository contaUsuarioRepository;
+
+    @Autowired
+    private ContaUsuarioService contaUsuarioService;
+
+    @Autowired
     private BancaRepository bancaRepository;
 
     @Autowired
     private MovimentacaoMonetariaRepository movimentacaoMonetariaRepository;
-
-    @Autowired
-    private MovimentacaoMonetariaService movimentacaoMonetariaService;
 
     @Autowired
     BancaMapper bancaMapper;
@@ -40,7 +46,7 @@ public class MovimentacaoBancariaController {
 
     @GetMapping(value = "/saldo")
     public ResponseEntity<BancaUsuarioDTO> saldoAtualDoUsuarioByUsuarioId(@RequestParam Long usuarioId){
-        Optional<Banca> bancaUsuario = bancaRepository.findByUsuarioId(usuarioId);
+        Optional<Banca> bancaUsuario = Optional.ofNullable(contaUsuarioRepository.findById(usuarioId).get().getBanca());
 
         if(bancaUsuario.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -53,11 +59,13 @@ public class MovimentacaoBancariaController {
 
     @GetMapping(value = "/extrato/todasAsMovimentacoes")
     public ResponseEntity<List<MovimentacaoMonetariaDTO>> extratoDeTodasAsMovimentacoesDoUsuarioByUsuarioId(@RequestParam Long usuarioId){
-        List<MovimentacaoMonetaria> movimentacoesMonetarias = movimentacaoMonetariaRepository.findAllByBancaUsuarioId(usuarioId);
+        List<MovimentacaoMonetaria> movimentacoesMonetarias = contaUsuarioRepository.findById(usuarioId).get().getBanca().getUltimasMovimentacoes();
 
         if(movimentacoesMonetarias.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+
+        Collections.sort(movimentacoesMonetarias);
 
         List<MovimentacaoMonetariaDTO> movimentacaoMonetariaDTOList = movimentacaoMonetariaMapper.toMovimentacaoMonetariaDTOList(movimentacoesMonetarias);
 
@@ -66,20 +74,28 @@ public class MovimentacaoBancariaController {
 
     @GetMapping(value = "/extrato/ultimasMovimentacoes")
     public ResponseEntity<List<MovimentacaoMonetariaDTO>> extratoDasUltimasMovimentacoesDoUsuarioByUsuarioId(@RequestParam Long usuarioId){
-        List<MovimentacaoMonetaria> movimentacoesMonetarias = movimentacaoMonetariaService.findUltimasCincoMovimentacoesMonetariasDoUsuario(usuarioId);
+        List<MovimentacaoMonetaria> allMovimentacoesMonetarias = contaUsuarioRepository.findById(usuarioId).get().getBanca().getUltimasMovimentacoes();
 
-        if(movimentacoesMonetarias.isEmpty()){
+        if(allMovimentacoesMonetarias.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        List<MovimentacaoMonetariaDTO> movimentacaoMonetariaDTOList = movimentacaoMonetariaMapper.toMovimentacaoMonetariaDTOList(movimentacoesMonetarias);
+        Collections.sort(allMovimentacoesMonetarias);
+
+        List<MovimentacaoMonetaria> ultimasCincoMovimentacoesMonetarias = Lists.newArrayList();
+
+        for(int contador = 0; contador < 5; contador ++){
+            ultimasCincoMovimentacoesMonetarias.add(allMovimentacoesMonetarias.get(contador));
+        }
+
+        List<MovimentacaoMonetariaDTO> movimentacaoMonetariaDTOList = movimentacaoMonetariaMapper.toMovimentacaoMonetariaDTOList(ultimasCincoMovimentacoesMonetarias);
 
         return ResponseEntity.status(HttpStatus.OK).body(movimentacaoMonetariaDTOList);
     }
 
     @PutMapping(value = "/deposito")
     public ResponseEntity<BigDecimal> depositoNaCarteiraDoUsuarioByUsuarioId(@RequestParam Long usuarioId, @RequestParam BigDecimal valorDeposito) {
-        Optional<Banca> bancaUsuario = bancaRepository.findByUsuarioId(usuarioId);
+        Optional<Banca> bancaUsuario = Optional.ofNullable(contaUsuarioRepository.findById(usuarioId).get().getBanca());
 
         if(bancaUsuario.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -105,7 +121,7 @@ public class MovimentacaoBancariaController {
 
     @PutMapping(value = "/saque")
     public ResponseEntity<BigDecimal> saqueNaCarteiraDoUsuarioByUsuarioId(@RequestParam Long usuarioId, @RequestParam BigDecimal valorSaque) {
-        Optional<Banca> bancaUsuario = bancaRepository.findByUsuarioId(usuarioId);
+        Optional<Banca> bancaUsuario = Optional.ofNullable(contaUsuarioRepository.findById(usuarioId).get().getBanca());
 
         if(bancaUsuario.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

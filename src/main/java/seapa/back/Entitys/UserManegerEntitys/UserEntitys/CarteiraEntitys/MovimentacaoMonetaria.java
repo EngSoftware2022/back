@@ -8,16 +8,9 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "SEAPA_MOVIMENTACOES_BANCA_USUARIO")
-@NamedQueries(value = {
-        @NamedQuery(name = MovimentacaoMonetaria.FIND_ULTIMAS_CINCO_MOVIMENTACOES_MONETARIAS_USUARIO_BY_USUARIO_ID,
-                query = MovimentacaoMonetaria.FIND_ULTIMAS_CINCO_MOVIMENTACOES_MONETARIAS_USUARIO_BY_USUARIO_ID)
-})
 @SequenceGenerator(name = "movimentacao_banca_seq", sequenceName = "movimentacao_banca_seq", allocationSize = 1, initialValue = 1)
 @Data
-public class MovimentacaoMonetaria extends Auditable<String> {
-
-    public static final String FIND_ULTIMAS_CINCO_MOVIMENTACOES_MONETARIAS_USUARIO_BY_USUARIO_ID = "SELECT mm " +
-            "FROM MovimentacaoMonetaria mm WHERE mm.banca.usuario.id = :usuarioId ORDER BY mm.dataUltimaModificacao DESC";
+public class MovimentacaoMonetaria extends Auditable<String> implements Comparable<MovimentacaoMonetaria> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movimentacao_banca_seq")
@@ -32,4 +25,17 @@ public class MovimentacaoMonetaria extends Auditable<String> {
 
     @Column(name = "valor_movimentacao")
     private BigDecimal valorMovimentacao;
+
+    @Override
+    public int compareTo(MovimentacaoMonetaria outraMovimentacao) {
+        if (this.dataUltimaModificacao.after(outraMovimentacao.getDataUltimaModificacao())) {
+            return -1;
+        }
+
+        if (this.dataUltimaModificacao.before(outraMovimentacao.getDataUltimaModificacao())) {
+            return 1;
+        }
+
+        return 0;
+    }
 }
