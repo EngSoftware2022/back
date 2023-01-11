@@ -1,16 +1,14 @@
-package seapa.back.Entitys.UserManegerEntitys.ApostasEntitys;
+package seapa.back.Entitys.BetManagerEntitys.ApostasEntitys;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import seapa.back.Entitys.UserManegerEntitys.ClassId.ParticipanteApostaId;
-import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ContaUsuario;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "SEAPA_PARTICIPANTE_APOSTA")
+@Table(name = "SEAPA_PARTICIPANTE")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

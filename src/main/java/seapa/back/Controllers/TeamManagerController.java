@@ -1,18 +1,16 @@
 package seapa.back.Controllers;
 
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import seapa.back.Entitys.BetManagerEntitys.Apostas.CentralDeGerenciamentoDasApostas;
 import seapa.back.Entitys.UserManegerEntitys.GrupoEntitys.ConviteGrupo;
 import seapa.back.Entitys.UserManegerEntitys.GrupoEntitys.Grupo;
 import seapa.back.Entitys.UserManegerEntitys.GrupoEntitys.IntegrantesGrupo;
 import seapa.back.Models.CriarGrupoModel;
+import seapa.back.Repository.ApostasManagerRepositosy.CentralDeGerenciamentoDeApostasRepository;
 import seapa.back.Repository.TeamManagerRepository.ConviteTimeRepository;
 import seapa.back.Repository.TeamManagerRepository.IntegrantesTimeRepository;
 import seapa.back.Repository.TeamManagerRepository.TimeRepositorioAuxiliar;
@@ -42,6 +40,9 @@ public class TeamManagerController {
     @Autowired
     private TimeRepositorioAuxiliar repositorioAuxiliar;
 
+    @Autowired
+    private CentralDeGerenciamentoDeApostasRepository centralDeGerenciamentoDeApostasRepository;
+
     @PostMapping
     public HttpStatus criarGrupo(@RequestBody CriarGrupoModel grupoModel){
         Grupo grupo = grupoModel.toGrupo();
@@ -51,6 +52,10 @@ public class TeamManagerController {
         integrantesGrupo.setNomeUsuario(nomeModerador);
         integrantesGrupo.setIdUsuarioIntegrante(grupo.getModeradorId());
         grupo.setIntegrantes(integrantesGrupo);
+
+        List<CentralDeGerenciamentoDasApostas> centralDeGerenciamentoDasApostas = Lists.newArrayList();
+        grupo.setCentralDeGerenciamentoDasApostas(centralDeGerenciamentoDasApostas);
+
         timeRepository.save(grupo);
         return HttpStatus.OK;
     }
@@ -122,6 +127,23 @@ public class TeamManagerController {
         timeRepository.save(grupo);
         integrantesRepository.delete(integrantesGrupos.get(0));
         return HttpStatus.OK;
+    }
+
+    @PutMapping(value = "/novaCentralDeGerenciamento")
+    public ResponseEntity<HttpStatus> criarNovoCentroDeGerenciamentoDeApostas(@RequestParam Long grupoId, @RequestParam String tipoEsporte) {
+        Grupo grupo = Optional.ofNullable( repositorioAuxiliar.findByGrupo(grupoId)).orElseThrow(() -> new RuntimeException("Id do grupo invalido"));
+
+        CentralDeGerenciamentoDasApostas novaCentralDeGerenciamento = new CentralDeGerenciamentoDasApostas();
+
+        //novaCentralDeGerenciamento.setGrupo(grupo);
+        novaCentralDeGerenciamento.setTipoEsporte(tipoEsporte);
+
+        grupo.getCentralDeGerenciamentoDasApostas().add(novaCentralDeGerenciamento);
+
+        centralDeGerenciamentoDeApostasRepository.save(novaCentralDeGerenciamento);
+        timeRepository.save(grupo);
+
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }

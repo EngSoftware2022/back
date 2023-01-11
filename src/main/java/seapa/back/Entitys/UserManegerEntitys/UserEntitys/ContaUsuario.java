@@ -3,12 +3,13 @@ package seapa.back.Entitys.UserManegerEntitys.UserEntitys;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import seapa.back.Audit.Auditable;
+import seapa.back.Entitys.BetManagerEntitys.Apostas.ApostaDoUsuario;
 import seapa.back.Entitys.UserManegerEntitys.UserEntitys.CarteiraEntitys.Banca;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
+import java.util.List;
 
 @Entity
 @Table(name = "SEAPA_CONTA_USUARIO")
@@ -49,6 +50,9 @@ public class ContaUsuario extends Auditable<String> {
     @JsonIgnore
     @OneToMany(mappedBy="usuario", cascade=CascadeType.ALL, orphanRemoval = true)
     private Set<ListaAmigos> amigos = new HashSet<>();
+
+    @OneToMany(mappedBy="apostador", cascade=CascadeType.ALL, orphanRemoval = true)
+    List<ApostaDoUsuario> apostasRealziadas;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "extrato_id")

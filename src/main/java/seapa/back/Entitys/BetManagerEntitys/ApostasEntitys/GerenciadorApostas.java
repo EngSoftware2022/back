@@ -1,4 +1,4 @@
-package seapa.back.Entitys.UserManegerEntitys.ApostasEntitys;
+package seapa.back.Entitys.BetManagerEntitys.ApostasEntitys;
 
 import lombok.Data;
 import seapa.back.Audit.Auditable;

@@ -1,13 +1,13 @@
-package seapa.back.Controllers.ApostasManagerController;
+package seapa.back.Controllers.ApostasManagerController.Antigo;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import seapa.back.Entitys.UserManegerEntitys.ApostasEntitys.ApostaComum;
-import seapa.back.Entitys.UserManegerEntitys.ApostasEntitys.GerenciadorApostas;
-import seapa.back.Entitys.UserManegerEntitys.ApostasEntitys.ParticipanteAposta;
+import seapa.back.Entitys.BetManagerEntitys.ApostasEntitys.ApostaComum;
+import seapa.back.Entitys.BetManagerEntitys.ApostasEntitys.GerenciadorApostas;
+import seapa.back.Entitys.BetManagerEntitys.ApostasEntitys.ParticipanteAposta;
 import seapa.back.Entitys.UserManegerEntitys.GrupoEntitys.Grupo;
 import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ContaUsuario;
 import seapa.back.Models.CriarAposta;

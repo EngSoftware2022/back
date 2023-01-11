@@ -1,10 +1,9 @@
 package seapa.back.Models;
 
 import lombok.Data;
-import seapa.back.Entitys.UserManegerEntitys.ApostasEntitys.ApostaComum;
-import seapa.back.Entitys.UserManegerEntitys.ApostasEntitys.GerenciadorApostas;
-import seapa.back.Entitys.UserManegerEntitys.ApostasEntitys.ParticipanteAposta;
-import seapa.back.Entitys.UserManegerEntitys.EquipesEntitys.Equipe;
+import seapa.back.Entitys.BetManagerEntitys.ApostasEntitys.ApostaComum;
+import seapa.back.Entitys.BetManagerEntitys.ApostasEntitys.GerenciadorApostas;
+import seapa.back.Entitys.BetManagerEntitys.ApostasEntitys.ParticipanteAposta;
 
 import java.util.ArrayList;
 import java.util.Date;
