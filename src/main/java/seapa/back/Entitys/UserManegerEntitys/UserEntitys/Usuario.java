@@ -1,6 +1,7 @@
 package seapa.back.Entitys.UserManegerEntitys.UserEntitys;
 
 import lombok.Data;
+import seapa.back.Models.UsuarioModel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "SEAPA_USUARIO")
@@ -36,4 +38,11 @@ public class Usuario {
     @Column(name = "telefone", nullable = false)
     private String telefone;
 
+    public void atualizar(UsuarioModel cadastroUsuario) {
+        this.nome = Objects.isNull(cadastroUsuario.getNome()) ?this.nome : cadastroUsuario.getNome();
+        this.sobrenome = Objects.isNull(cadastroUsuario.getUltimoNome()) ? this.sobrenome :  cadastroUsuario.getUltimoNome() ;
+        this.cpf = Objects.isNull(cadastroUsuario.getCpf()) ? this.cpf : cadastroUsuario.getCpf() ;
+        this.dataAniversario = Objects.isNull(cadastroUsuario.getDataNascimento()) ? this.dataAniversario : cadastroUsuario.getDataNascimento();
+        this.telefone = Objects.isNull(cadastroUsuario.getTelefone()) ? this.telefone : cadastroUsuario.getTelefone() ;
+    }
 }

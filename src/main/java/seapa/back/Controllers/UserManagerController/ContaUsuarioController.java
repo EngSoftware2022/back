@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ContaUsuario;
+import seapa.back.Entitys.UserManegerEntitys.UserEntitys.Usuario;
 import seapa.back.Models.DTOs.ContaUsuarioDTO;
 import seapa.back.Models.UsuarioModel;
 import seapa.back.Repository.UserManagerRepository.ContaUsuarioRepository;
@@ -22,6 +23,7 @@ import seapa.back.Services.UserManagerService.ContaUsuarioService;
 import seapa.back.Settings.Mappers.ContaUsuarioMapper;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -61,6 +63,14 @@ public class ContaUsuarioController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public void insertContaUsuario(@RequestBody UsuarioModel cadastroUsuario) {
+        List<ContaUsuario> verificaSeexiste = contaUsuarioService.findContaUsuarioByNomeUsuario(cadastroUsuario.getNomeDeUsuario()) ;
+        if (verificaSeexiste.size() == 1) {
+            Usuario atualizaDados = verificaSeexiste.get(0).getUsuario();
+            atualizaDados.atualizar(cadastroUsuario);
+            verificaSeexiste.get(0).setUsuario(atualizaDados);
+            contaUsuarioRepository.save(verificaSeexiste.get(0));
+            return ;
+        }
         try{
             ContaUsuario conta = cadastroUsuario.conversor();
             contaUsuarioRepository.save(conta);
