@@ -22,6 +22,13 @@ public class ModelMapperConfiguration {
                 .addMapping(src -> src.getSolicitante().getNomeUsuario(), ConviteAmizadeDTO::setSolicitanteNome)
                 .addMapping(src -> src.getSolicitado().getId(), ConviteAmizadeDTO::setSolicitadoId)
                 .addMapping(src -> src.getSolicitado().getNomeUsuario(), ConviteAmizadeDTO::setSolicitadoNome);
+//
+//        modelMapper.createTypeMap(Aposta.class, ApostaDTO.class)
+//                .addMapping(src -> src.getOpcoesApostas(), ApostaDTO::setOpcoesApostas)
+//                .addMapping(src -> src.getSolicitante().getNomeUsuario(), ConviteAmizadeDTO::setSolicitanteNome)
+//                .addMapping(src -> src.getSolicitado().getId(), ConviteAmizadeDTO::setSolicitadoId)
+//                .addMapping(src -> src.getSolicitado().getNomeUsuario(), ConviteAmizadeDTO::setSolicitadoNome);
+
 
         return modelMapper;
     }

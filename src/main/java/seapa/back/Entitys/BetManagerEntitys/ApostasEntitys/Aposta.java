@@ -1,7 +1,8 @@
-package seapa.back.Entitys.BetManagerEntitys.Apostas;
+package seapa.back.Entitys.BetManagerEntitys.ApostasEntitys;
 
+import com.google.common.collect.Lists;
 import lombok.Data;
-import seapa.back.Entitys.BetManagerEntitys.Apostas.TiposDasApostas.TiposDeApostas;
+import seapa.back.Entitys.BetManagerEntitys.ApostasUsuarioEntitys.ApostaDoUsuario;
 import seapa.back.Utils.StatusDaApostaEnum;
 import seapa.back.Utils.TiposDeApostasEnum;
 import seapa.back.Utils.TiposDeGerenciamentoEnum;
@@ -14,16 +15,15 @@ import java.util.List;
 
 @Entity
 @Table(name = "SEAPA_APOSTAS")
-@SequenceGenerator(name = "aposta_comum_seq", sequenceName = "aposta_comum_seq", allocationSize = 1, initialValue = 1)
 @Data
-public class Aposta extends TiposDeApostas implements Serializable {
+public class Aposta implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "aposta_comum_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
-    @MapsId("gerenciadorId")
+    @JoinColumn(name = "gerenciador_id")
     private CentralDeGerenciamentoDasApostas gerenciador;
 
     @Column(name = "descricao_aposta")
@@ -43,6 +43,9 @@ public class Aposta extends TiposDeApostas implements Serializable {
     @Column(name = "tipo_aposta")
     private TiposDeApostasEnum tipoAposta;
 
+    @OneToMany(targetEntity= OpcoesAposta.class, mappedBy="aposta", cascade=CascadeType.ALL, orphanRemoval = true)
+    private List<OpcoesAposta> opcoesApostas;
+
     @Column(name = "valor_aposta")
     private BigDecimal valorAposta = BigDecimal.ZERO;
 
@@ -50,9 +53,14 @@ public class Aposta extends TiposDeApostas implements Serializable {
     @Column(name = "status_aposta")
     private StatusDaApostaEnum statusAposta;
 
-    @OneToMany(mappedBy="aposta", cascade=CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "opcao_vencedora_id")
+    private OpcoesAposta opcaoVencedora;
+
+    @OneToMany(targetEntity = ApostaDoUsuario.class,mappedBy="aposta", cascade=CascadeType.ALL, orphanRemoval = true)
     private List<ApostaDoUsuario> apostadores;
 
     @Transient
-    private List<ApostaDoUsuario> vencedores;
+    private List<ApostaDoUsuario> vencedores = Lists.newArrayList();
+
 }

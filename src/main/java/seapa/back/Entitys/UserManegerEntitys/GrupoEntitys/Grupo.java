@@ -2,7 +2,7 @@ package seapa.back.Entitys.UserManegerEntitys.GrupoEntitys;
 
 import lombok.Data;
 import seapa.back.Audit.Auditable;
-import seapa.back.Entitys.BetManagerEntitys.Apostas.CentralDeGerenciamentoDasApostas;
+import seapa.back.Entitys.BetManagerEntitys.ApostasEntitys.CentralDeGerenciamentoDasApostas;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -31,7 +31,7 @@ public class Grupo extends Auditable<String> implements Serializable {
     @JoinColumn(name = "integrantes.id")
     private List<IntegrantesGrupo> integrantes = new ArrayList<>();
 
-    @OneToMany(mappedBy="grupo", cascade=CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(targetEntity = CentralDeGerenciamentoDasApostas.class ,mappedBy="grupo", cascade=CascadeType.ALL, orphanRemoval = true)
     private List<CentralDeGerenciamentoDasApostas> centralDeGerenciamentoDasApostas;
 
     public void setIntegrantes(IntegrantesGrupo integrantes) {

@@ -10,19 +10,17 @@ import java.util.List;
 
 @Entity
 @Table(name = "SEAPA_BANCA_USUARIO")
-@SequenceGenerator(name = "banca_usuario_seq", sequenceName = "banca_usuario_seq", allocationSize = 1, initialValue = 1)
 @Data
 public class Banca extends Auditable<String> implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "banca_usuario_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "saldo")
     private BigDecimal saldo = BigDecimal.ZERO;
 
-    @OneToMany
-    @JoinColumn(name = "banca_id")
+    @OneToMany(targetEntity = MovimentacaoMonetaria.class, mappedBy="banca", cascade=CascadeType.ALL, orphanRemoval = true)
     private List<MovimentacaoMonetaria> ultimasMovimentacoes;
 
 }

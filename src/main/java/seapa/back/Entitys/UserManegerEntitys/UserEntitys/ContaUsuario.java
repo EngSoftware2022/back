@@ -3,7 +3,7 @@ package seapa.back.Entitys.UserManegerEntitys.UserEntitys;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import seapa.back.Audit.Auditable;
-import seapa.back.Entitys.BetManagerEntitys.Apostas.ApostaDoUsuario;
+import seapa.back.Entitys.BetManagerEntitys.ApostasUsuarioEntitys.ApostaDoUsuario;
 import seapa.back.Entitys.UserManegerEntitys.UserEntitys.CarteiraEntitys.Banca;
 
 import javax.persistence.*;

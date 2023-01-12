@@ -1,7 +1,9 @@
-package seapa.back.Entitys.BetManagerEntitys.Apostas;
+package seapa.back.Entitys.BetManagerEntitys.ApostasUsuarioEntitys;
 
 import lombok.Data;
+import seapa.back.Entitys.BetManagerEntitys.ApostasEntitys.Aposta;
 import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ContaUsuario;
+import seapa.back.Utils.StatusApostaUsuarioEnum;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -26,8 +28,9 @@ public class ApostaDoUsuario {
     @Column(name = "opcao_escolhida")
     private String opcaoEscolhida;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status_aposta_participante")
-    private String statusDaApostaDoParticipante;
+    private StatusApostaUsuarioEnum statusDaApostaDoParticipante;
 
     @Column(name = "lucro_obtido")
     private BigDecimal lucroObtido = BigDecimal.ZERO;

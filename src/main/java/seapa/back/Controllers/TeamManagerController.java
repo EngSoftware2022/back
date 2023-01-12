@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import seapa.back.Entitys.BetManagerEntitys.Apostas.CentralDeGerenciamentoDasApostas;
+import seapa.back.Entitys.BetManagerEntitys.ApostasEntitys.CentralDeGerenciamentoDasApostas;
 import seapa.back.Entitys.UserManegerEntitys.GrupoEntitys.ConviteGrupo;
 import seapa.back.Entitys.UserManegerEntitys.GrupoEntitys.Grupo;
 import seapa.back.Entitys.UserManegerEntitys.GrupoEntitys.IntegrantesGrupo;
@@ -131,11 +131,11 @@ public class TeamManagerController {
 
     @PutMapping(value = "/novaCentralDeGerenciamento")
     public ResponseEntity<HttpStatus> criarNovoCentroDeGerenciamentoDeApostas(@RequestParam Long grupoId, @RequestParam String tipoEsporte) {
-        Grupo grupo = Optional.ofNullable( repositorioAuxiliar.findByGrupo(grupoId)).orElseThrow(() -> new RuntimeException("Id do grupo invalido"));
+        Grupo grupo = Optional.ofNullable(repositorioAuxiliar.findByGrupo(grupoId)).orElseThrow(() -> new RuntimeException("Id do grupo invalido"));
 
         CentralDeGerenciamentoDasApostas novaCentralDeGerenciamento = new CentralDeGerenciamentoDasApostas();
 
-        //novaCentralDeGerenciamento.setGrupo(grupo);
+        novaCentralDeGerenciamento.setGrupo(grupo);
         novaCentralDeGerenciamento.setTipoEsporte(tipoEsporte);
 
         grupo.getCentralDeGerenciamentoDasApostas().add(novaCentralDeGerenciamento);

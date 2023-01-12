@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import seapa.back.Entitys.BetManagerEntitys.Apostas.CentralDeGerenciamentoDasApostas;
+import seapa.back.Entitys.BetManagerEntitys.ApostasEntitys.CentralDeGerenciamentoDasApostas;
 import seapa.back.Models.Requests.CentralDeGerenciamentoDeApostasRequest;
 
 import java.util.List;

@@ -8,12 +8,11 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "SEAPA_MOVIMENTACOES_BANCA_USUARIO")
-@SequenceGenerator(name = "movimentacao_banca_seq", sequenceName = "movimentacao_banca_seq", allocationSize = 1, initialValue = 1)
 @Data
 public class MovimentacaoMonetaria extends Auditable<String> implements Comparable<MovimentacaoMonetaria> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movimentacao_banca_seq")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
