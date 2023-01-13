@@ -4,26 +4,19 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ContaUsuario;
+import seapa.back.Models.DTOs.ApostaDoUsuarioDTO;
 import seapa.back.Entitys.UserManegerEntitys.UserEntitys.Usuario;
 import seapa.back.Models.DTOs.ContaUsuarioDTO;
 import seapa.back.Models.UsuarioModel;
 import seapa.back.Repository.UserManagerRepository.ContaUsuarioRepository;
 import seapa.back.Services.UserManagerService.ContaUsuarioService;
+import seapa.back.Settings.Mappers.ApostaDoUsuarioMapper;
 import seapa.back.Settings.Mappers.ContaUsuarioMapper;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -37,7 +30,10 @@ public class ContaUsuarioController {
     private ContaUsuarioService contaUsuarioService;
 
     @Autowired
-    ContaUsuarioMapper contaUsuarioMapper;
+    private ContaUsuarioMapper contaUsuarioMapper;
+
+    @Autowired
+    private ApostaDoUsuarioMapper apostaDoUsuarioMapper;
 
     @GetMapping
     public List<ContaUsuario> findAllContasUsuarios() {
@@ -49,7 +45,7 @@ public class ContaUsuarioController {
         ContaUsuario contaUsuario = contaUsuarioRepository.findById(id).get();
         ContaUsuarioDTO contaUsuarioDTO = contaUsuarioMapper.toContaUsuarioDTO(contaUsuario);
         
-        return ResponseEntity.status(HttpStatus.CREATED).body(contaUsuarioDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(contaUsuarioDTO);
     }
     
     @GetMapping(value = "/nomeUsuario")
@@ -99,5 +95,14 @@ public class ContaUsuarioController {
         }
 
         return contaUsuarioId;
+    }
+
+    @GetMapping(value = "/todasAsApostasRealizadas")
+    public ResponseEntity<List<ApostaDoUsuarioDTO>> buscaTodasAsApostasRealizadas(@RequestParam Long usuarioId) {
+        ContaUsuario usuario = Optional.of(contaUsuarioRepository.findById(usuarioId).get()).orElseThrow(() -> new RuntimeException("Usuario não encontrado!"));
+
+        List<ApostaDoUsuarioDTO> apostaDoUsuarioDTOList = apostaDoUsuarioMapper.toApostaDoUsuarioDTOList(usuario.getApostasRealziadas());
+
+        return ResponseEntity.status(HttpStatus.OK).body(apostaDoUsuarioDTOList);
     }
 }
