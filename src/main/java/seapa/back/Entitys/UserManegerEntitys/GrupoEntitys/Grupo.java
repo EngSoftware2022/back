@@ -15,7 +15,7 @@ import java.util.List;
 public class Grupo extends Auditable<String> implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "SEQ_ATIVO", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(nullable = false)
