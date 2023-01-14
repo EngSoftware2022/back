@@ -27,8 +27,7 @@ public class Grupo extends Auditable<String> implements Serializable {
     @Column(nullable = false)
     private String nomeModerador;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "integrantes.id")
+    @OneToMany(targetEntity = IntegrantesGrupo.class ,mappedBy="idUsuarioIntegrante", cascade=CascadeType.ALL, orphanRemoval = true)
     private List<IntegrantesGrupo> integrantes = new ArrayList<>();
 
     @OneToMany(targetEntity = CentralDeGerenciamentoDasApostas.class ,mappedBy="grupo", cascade=CascadeType.ALL, orphanRemoval = true)
