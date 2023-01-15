@@ -10,6 +10,7 @@ import seapa.back.Entitys.BetManagerEntitys.ApostasEntitys.CentralDeGerenciament
 import seapa.back.Entitys.BetManagerEntitys.ApostasEntitys.OpcoesAposta;
 import seapa.back.Entitys.BetManagerEntitys.ApostasUsuarioEntitys.ApostaDoUsuario;
 import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ContaUsuario;
+import seapa.back.Models.DTOs.ApostaDTO;
 import seapa.back.Models.Requests.ApostaRequest;
 import seapa.back.Models.Requests.OpcoesApostaRequest;
 import seapa.back.Models.Requests.ParticipanteApostaRequest;
@@ -19,6 +20,8 @@ import seapa.back.Repository.ApostasManagerRepositosy.CentralDeGerenciamentoDeAp
 import seapa.back.Repository.ApostasManagerRepositosy.OpcoesApostaRepository;
 import seapa.back.Repository.TeamManagerRepository.TimeRepositorioAuxiliar;
 import seapa.back.Repository.UserManagerRepository.ContaUsuarioRepository;
+import seapa.back.Services.BetManagerService;
+import seapa.back.Settings.Mappers.ApostasMapper;
 import seapa.back.Settings.Mappers.CentralDeGerenciamentoDeApostasMapper;
 import seapa.back.Utils.StatusApostaUsuarioEnum;
 import seapa.back.Utils.StatusDaApostaEnum;
@@ -53,6 +56,12 @@ public class ApostasController {
 
     @Autowired
     private TimeRepositorioAuxiliar repositorioAuxiliar;
+
+    @Autowired
+    private BetManagerService apostaService;
+
+    @Autowired
+    private ApostasMapper apostasMapper;
 
     @PostMapping(value = "/novaAposta")
     public ResponseEntity<HttpStatus> criarNovaAposta(@RequestBody ApostaRequest parametrosAposta) {
@@ -182,5 +191,13 @@ public class ApostasController {
         apostasRepository.save(aposta);
 
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping(value = "/todasApostasCadastradas")
+    public ResponseEntity<Optional<List<ApostaDTO>>> listarApostasPorGrupo(@RequestParam Long gropoId) {
+        List<Aposta> apostasEntity = apostaService.findApostasByGrupo(gropoId);
+        Optional<List<ApostaDTO>> apostasDTO = Optional.ofNullable(apostasMapper.toApostaDTOList(apostasEntity));
+
+        return ResponseEntity.status(HttpStatus.OK).body(apostasDTO);
     }
 }

@@ -3,6 +3,7 @@ package seapa.back.Entitys.BetManagerEntitys.ApostasEntitys;
 import com.google.common.collect.Lists;
 import lombok.Data;
 import seapa.back.Entitys.BetManagerEntitys.ApostasUsuarioEntitys.ApostaDoUsuario;
+import seapa.back.Entitys.UserManegerEntitys.UserEntitys.ListaAmigos;
 import seapa.back.Utils.StatusDaApostaEnum;
 import seapa.back.Utils.TiposDeApostasEnum;
 import seapa.back.Utils.TiposDeGerenciamentoEnum;
@@ -15,8 +16,13 @@ import java.util.List;
 
 @Entity
 @Table(name = "SEAPA_APOSTAS")
+@NamedQueries(value = {
+        @NamedQuery(name = Aposta.FIND_ALL_APOSTAS_BY_USUARIO_ID, query = Aposta.FIND_ALL_APOSTAS_BY_USUARIO_ID),
+})
 @Data
 public class Aposta implements Serializable {
+
+    public static final String FIND_ALL_APOSTAS_BY_USUARIO_ID = "SELECT a FROM Aposta a WHERE a.gerenciador.grupo.id = :grupoId";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
