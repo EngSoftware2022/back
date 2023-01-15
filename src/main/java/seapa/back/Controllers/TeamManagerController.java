@@ -130,7 +130,7 @@ public class TeamManagerController {
     }
 
     @PutMapping(value = "/novaCentralDeGerenciamento")
-    public ResponseEntity<HttpStatus> criarNovoCentroDeGerenciamentoDeApostas(@RequestParam Long grupoId, @RequestParam String tipoEsporte) {
+    public ResponseEntity<Long> criarNovoCentroDeGerenciamentoDeApostas(@RequestParam Long grupoId, @RequestParam String tipoEsporte) {
         Grupo grupo = Optional.ofNullable(repositorioAuxiliar.findByGrupo(grupoId)).orElseThrow(() -> new RuntimeException("Id do grupo invalido"));
 
         CentralDeGerenciamentoDasApostas novaCentralDeGerenciamento = new CentralDeGerenciamentoDasApostas();
@@ -143,7 +143,7 @@ public class TeamManagerController {
         centralDeGerenciamentoDeApostasRepository.save(novaCentralDeGerenciamento);
         timeRepository.save(grupo);
 
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.OK).body(novaCentralDeGerenciamento.getId());
     }
 
 }
