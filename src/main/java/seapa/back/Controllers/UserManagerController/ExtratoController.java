@@ -14,6 +14,7 @@ import seapa.back.Models.AtualizaExtratoModel;
 import seapa.back.Repository.UserManagerRepository.ContaUsuarioRepository;
 import seapa.back.Repository.UserManagerRepository.ExtratoRepository;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -28,8 +29,9 @@ public class ExtratoController {
 
     @GetMapping
     public Extrato getSaldo(@RequestParam Long UsuarioId){
-        ContaUsuario usuario = contaUsuarioRepository.findById(UsuarioId).get();
-        Extrato extrato = usuario.getExtrato();
+        Optional<ContaUsuario> usuario = contaUsuarioRepository.findById(UsuarioId);
+        if(usuario.isEmpty()) return null;
+        Extrato extrato = usuario.get().getExtrato();
         return extrato;
     }
 

@@ -11,9 +11,9 @@ import seapa.back.Repository.UserManagerRepository.ContaUsuarioRepository;
 
 import java.math.BigDecimal;
 import java.util.Objects;
+import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class TestesExtrato {
@@ -27,9 +27,9 @@ public class TestesExtrato {
     public Extrato extrato;
 
     @BeforeEach
-    public void beforeEach() {
+    public void before() {
         ContaUsuario contaUsuario = new ContaUsuario();
-        contaUsuario.setNomeUsuario("xpto");
+        contaUsuario.setNomeUsuario(UUID.randomUUID().toString());
         contaUsuario.setEmail("xpto");
         contaUsuario.setSenha("xpto");
         contaUsuario.setStatusConta("xpto");
@@ -41,7 +41,7 @@ public class TestesExtrato {
 
     @Test
     public void testaVazio(){
-        Extrato extrato =  controller.getSaldo(2L);
+        Extrato extrato =  controller.getSaldo(4L);
         assertTrue(Objects.isNull(extrato));
     }
 
